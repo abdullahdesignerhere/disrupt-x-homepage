@@ -37,7 +37,7 @@ export function initStory(): (() => void) | null {
   const caption = frame.querySelector<HTMLElement>('figcaption');
   const skip = section.querySelector<HTMLAnchorElement>('[data-skip]');
   const sets = [...section.querySelectorAll<HTMLElement>('.dayset')];
-  const sts = [...section.querySelectorAll<HTMLElement>('.st')];
+  const sts = [...section.querySelectorAll<HTMLElement>('.st')].filter((el) => !host.contains(el)); // ALEF has its own .st
   const cos = [...section.querySelectorAll<HTMLElement>('.co')];
   const N = sets.length;
   const T = LIFT + PER_DAY * N;
