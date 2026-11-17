@@ -1,0 +1,474 @@
+{
+  "pins_1440x860": [
+    {
+      "id": "story",
+      "start": 0,
+      "end": 3000
+    },
+    {
+      "id": "platform",
+      "start": 7054,
+      "end": 9454
+    }
+  ],
+  "smoothness": {
+    "final": 12010,
+    "jumps": [],
+    "errors": []
+  },
+  "tabs_on_scroll": {
+    "1440x900": {
+      "sequence": [
+        "HSEQ",
+        "CAFM | CMMS",
+        "iBMS",
+        "Connected Operations",
+        "Mobility"
+      ],
+      "pin": {
+        "id": "platform",
+        "start": 7094,
+        "end": 9494
+      },
+      "errors": []
+    },
+    "1280x720": {
+      "sequence": [
+        "HSEQ",
+        "CAFM | CMMS",
+        "iBMS",
+        "Connected Operations",
+        "Mobility"
+      ],
+      "pin": {
+        "id": "platform",
+        "start": 6817,
+        "end": 9217
+      },
+      "errors": []
+    },
+    "1024x768": {
+      "sequence": [
+        "HSEQ",
+        "CAFM | CMMS",
+        "iBMS",
+        "Connected Operations",
+        "Mobility"
+      ],
+      "pin": {
+        "id": "platform",
+        "start": 6738,
+        "end": 9138
+      },
+      "errors": []
+    },
+    "800x600": {
+      "sequence": [
+        "HSEQ",
+        "CAFM | CMMS",
+        "iBMS",
+        "Connected Operations",
+        "Mobility"
+      ],
+      "pin": {
+        "id": "platform",
+        "start": 8015,
+        "end": 10415
+      },
+      "errors": []
+    }
+  },
+  "tabs_click_390": [
+    [
+      "HSEQ",
+      1
+    ],
+    [
+      "CAFM | CMMS",
+      1
+    ],
+    [
+      "iBMS",
+      1
+    ],
+    [
+      "Connected Operations",
+      1
+    ],
+    [
+      "Mobility",
+      1
+    ]
+  ],
+  "overflow": {
+    "360": [
+      360,
+      360
+    ],
+    "390": [
+      390,
+      390
+    ],
+    "414": [
+      414,
+      414
+    ],
+    "768": [
+      768,
+      768
+    ],
+    "1024": [
+      1024,
+      1024
+    ],
+    "1280": [
+      1280,
+      1280
+    ],
+    "1440": [
+      1440,
+      1440
+    ]
+  },
+  "tap_targets_under_44": [],
+  "menu": {
+    "opened": "true",
+    "closed_by_escape": "false",
+    "focus_back_on_button": true,
+    "closed_by_link": "false"
+  },
+  "tab_order": [
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Who it's for",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Platform",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "How it works",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "FAQ",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore CAFM | CMMS \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore HSEQ \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore iBMS \u2192",
+      "ring": true
+    },
+    {
+      "tag": "button",
+      "text": "HSEQ",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore HSEQ \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "What is ALEF 360\u00b0?",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Do I have to buy everything?",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Which modules are live today",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Does it work across many sit",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Does Disrupt-X repair the eq",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "name",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "email",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "company",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "role",
+      "ring": true
+    },
+    {
+      "tag": "button",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Press releases",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Podcasts",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Become a partner",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "disrupt-x.io",
+      "ring": true
+    },
+    {
+      "tag": "body",
+      "text": "Skip to contentWho it's forP",
+      "ring": false
+    },
+    {
+      "tag": "a",
+      "text": "Skip to content",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Who it's for",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Platform",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "How it works",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "FAQ",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Skip the story \u2193",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore CAFM | CMMS \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore HSEQ \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore iBMS \u2192",
+      "ring": true
+    },
+    {
+      "tag": "button",
+      "text": "HSEQ",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Explore HSEQ \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "What is ALEF 360\u00b0?",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Do I have to buy everything?",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Which modules are live today",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Does it work across many sit",
+      "ring": true
+    },
+    {
+      "tag": "summary",
+      "text": "Does Disrupt-X repair the eq",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "name",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "email",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "company",
+      "ring": true
+    },
+    {
+      "tag": "input",
+      "text": "role",
+      "ring": true
+    },
+    {
+      "tag": "button",
+      "text": "Book a demo\u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Press releases",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Podcasts",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "Become a partner",
+      "ring": true
+    },
+    {
+      "tag": "a",
+      "text": "disrupt-x.io",
+      "ring": true
+    }
+  ],
+  "focus_without_ring": [],
+  "tab_arrows": [
+    "CAFM | CMMS",
+    "iBMS",
+    "CAFM | CMMS"
+  ],
+  "accordion": {
+    "before": false,
+    "after_enter": true,
+    "after_space": false
+  },
+  "form": {
+    "focus": "f-name",
+    "invalid": 4,
+    "describedby": "err-name",
+    "err": "Enter your full name.",
+    "bad_email_focus": "f-email",
+    "success": [
+      "Thanks. This is a concept page, so the form is not connected yet.",
+      "status"
+    ]
+  },
+  "reduced_motion": {
+    "pinSpacers": 0,
+    "jsClass": false,
+    "mpin": false,
+    "dayLinesVisible": true,
+    "storyHeight": 2218,
+    "statementOpacity": "1",
+    "audienceOpacity": "1",
+    "scrollHeight": 8822
+  }
+}

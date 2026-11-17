@@ -123,7 +123,10 @@ export function initStory() {
     }
     const to = { x: tx, y: ty, scale: z };
     if (animate) gsap.to(host, { ...to, duration: 0.9, ease: 'power3.inOut', overwrite: true });
-    else gsap.set(host, to);
+    else {
+      gsap.killTweensOf(host); // a pan still running from an earlier day must not overwrite this one
+      gsap.set(host, to);
+    }
   }
 
   // ring and callout card, computed from the real element so they follow any layout
