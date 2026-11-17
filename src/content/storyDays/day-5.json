@@ -7,5 +7,6 @@
   "view": "asset",
   "target": "raise-wo",
   "note": "A work order is raised and sent to the technician's phone.",
-  "closeupAlt": "ALEF 360° asset page, close-up of the Raise WO button, ringed"
+  "closeupAlt": "ALEF 360° asset page, close-up of the Raise WO button, ringed",
+  "closeupHeight": 290
 }

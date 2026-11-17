@@ -121,6 +121,7 @@ const storyDays = defineCollection({
     target: z.enum(['alarms-tab', 'raise-wo', 'first-row', 'download-report']),
     note: z.string(),
     closeupAlt: z.string(), // alt text of the phone close-up image (public/assets/story/day<N>.webp)
+    closeupHeight: z.number(), // its pixel height (width is 760); printed by scripts/make-story-closeups.py
   }),
 });
 

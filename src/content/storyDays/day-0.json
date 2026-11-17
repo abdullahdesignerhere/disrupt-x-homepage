@@ -7,5 +7,6 @@
   "view": "asset",
   "target": "download-report",
   "note": "A normal day. The job is already in the client report.",
-  "closeupAlt": "ALEF 360° asset page, close-up of the Download Report button, ringed"
+  "closeupAlt": "ALEF 360° asset page, close-up of the Download Report button, ringed",
+  "closeupHeight": 261
 }

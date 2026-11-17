@@ -7,5 +7,6 @@
   "view": "workorders",
   "target": "first-row",
   "note": "Fixed in a planned two-hour window.",
-  "closeupAlt": "ALEF 360° work orders list, close-up of the first row (ID, status, description), ringed"
+  "closeupAlt": "ALEF 360° work orders list, close-up of the first row (ID, status, description), ringed",
+  "closeupHeight": 591
 }

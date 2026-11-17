@@ -7,5 +7,6 @@
   "view": "asset",
   "target": "alarms-tab",
   "note": "An alarm on AHU 1: vibration is drifting. Failure likely in six days.",
-  "closeupAlt": "ALEF 360° asset page for AHU 1, close-up of the Alarms tab, ringed"
+  "closeupAlt": "ALEF 360° asset page for AHU 1, close-up of the Alarms tab, ringed",
+  "closeupHeight": 304
 }

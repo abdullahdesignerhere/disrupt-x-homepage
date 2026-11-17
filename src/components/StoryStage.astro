@@ -8,7 +8,7 @@ import Button from './Button.astro';
 import DayBar from './DayBar.astro';
 import BrowserFrame from './BrowserFrame.astro';
 import { asset } from '../lib/url';
-interface Day { day: string; without: string; withoutIsBad: boolean; with: string; target: string; note: string; view: string; closeupAlt: string }
+interface Day { day: string; without: string; withoutIsBad: boolean; with: string; target: string; note: string; view: string; closeupAlt: string; closeupHeight: number }
 interface Props {
   hero: { eyebrow: string; titleStart: string; titleMark: string; titleEnd: string; lead: string; proof: string };
   story: any;
@@ -56,10 +56,9 @@ const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, 
           <p class:list={['sk-line', 'wo', { bad: d.withoutIsBad }]}><b class="tg">{story.without}</b><span>{d.without}</span></p>
           <p class="sk-line wi"><b class="tg">{story.with}</b><span>{d.with}</span></p>
           <img
-            class="sk-img" src={asset(`/assets/story/day${d.day}.webp`)} width="760" height="500" alt={d.closeupAlt}
+            class="sk-img" src={asset(`/assets/story/day${d.day}.webp`)} width="760" height={d.closeupHeight} alt={d.closeupAlt}
             loading={i === 0 ? 'eager' : 'lazy'} decoding="async"
           />
-          <p class="sk-note">{d.note}</p>
         </li>
       ))}
     </ol>
@@ -172,7 +171,6 @@ const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, 
     display: block; width: 100%; height: auto; margin-top: 6px; border-radius: 12px; border: 1px solid var(--line-2);
     background: #fff; box-shadow: var(--glow);
   }
-  .sk-note { margin: 0; font-family: var(--font-display); font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
   .sk-cta { margin-top: 40px; display: grid; gap: 14px; justify-items: start; font-family: var(--font-display); color: var(--ink-2); }
   .sk-cta p { margin: 0; font-size: 16px; }
   .sk-cap { margin: 26px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
