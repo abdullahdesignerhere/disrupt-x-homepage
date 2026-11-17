@@ -180,6 +180,11 @@
     },
     {
       "tag": "a",
+      "text": "Skip the story",
+      "ring": true
+    },
+    {
+      "tag": "a",
       "text": "Explore CAFM | CMMS \u2192",
       "ring": true
     },
@@ -330,6 +335,11 @@
     },
     {
       "tag": "a",
+      "text": "Skip the story",
+      "ring": true
+    },
+    {
+      "tag": "a",
       "text": "Skip the story \u2193",
       "ring": true
     },
@@ -426,16 +436,6 @@
     {
       "tag": "a",
       "text": "Press releases",
-      "ring": true
-    },
-    {
-      "tag": "a",
-      "text": "Podcasts",
-      "ring": true
-    },
-    {
-      "tag": "a",
-      "text": "Become a partner",
       "ring": true
     }
   ],

@@ -168,11 +168,18 @@ async def main():
         for w, h, tag, kw in [(1440, 900, '1440', {}), (390, 844, '390', dict(has_touch=True, is_mobile=True, device_scale_factor=2))]:
             pg = await load(b, w, h, **kw)
             pins = await pg.evaluate(PINS)
-            st = [x for x in pins if x['id'] == 'story'][0]
+            st = ([x for x in pins if x['id'] == 'story'] or [None])[0]
             mod = ([x for x in pins if x['id'] == 'platform'] or [None])[0]
-            for name, off in [('day6', 900), ('day4', 2100), ('day0', 2700)]:
-                await scroll_to(pg, st['start'] + off - 600 + 300 if False else st['start'] + off, 2600)
-                await pg.screenshot(path=f'{SHOTS}/story-{name}-{tag}.png')
+            if st:
+                for name, off in [('day6', 900), ('day4', 2100), ('day0', 2700)]:
+                    await scroll_to(pg, st['start'] + off, 2600)
+                    await pg.screenshot(path=f'{SHOTS}/story-{name}-{tag}.png')
+            else:  # phones: the story is a stacked timeline, no pins
+                await pg.evaluate("document.querySelectorAll('img[loading=lazy]').forEach(i => i.loading = 'eager')")
+                for i, name in enumerate(['day6', 'day5', 'day4', 'day0']):
+                    card = pg.locator('.sk-card').nth(i)
+                    await card.scroll_into_view_if_needed(); await pg.wait_for_timeout(900)
+                    await card.screenshot(path=f'{SHOTS}/story-{name}-{tag}.png')
             await scroll_to(pg, 0, 600)
             for i, a in enumerate(await pg.query_selector_all('.who article')):
                 await a.scroll_into_view_if_needed(); await pg.wait_for_timeout(1200)

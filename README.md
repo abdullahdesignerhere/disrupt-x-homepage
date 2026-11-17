@@ -54,7 +54,7 @@ All in `src/styles/tokens.css`. The button is `#19A993` with `#06110F` text. Bre
 
 ## Behaviour notes
 
-- Hero and story are one pinned stage: 600px of scroll to lift the frame, then 600px for each of four days. At 760px and below the screen becomes a close-up window that pans and zooms to the highlighted element. For the work-order row the close-up frames the first three cells at a smaller zoom (text about 9px) because the row is wider than a phone.
+- Hero and story are one pinned stage from 761px up (and at least 521px tall): 600px of scroll to lift the frame, then 600px for each of four days. On phones the story is a stacked timeline with pre-rendered close-ups; pinned scroll storytelling is used from 761px up. The phone close-ups are `public/assets/story/day*.webp`, made by `scripts/make-story-closeups.py` (renders the ALEF recreation with Playwright, rings the element, crops at 2x). Re-run it if the recreated screens or the ring targets change.
 - Platform section pins at 761px and up (one tab per 480px of scroll, stacked layout up to 1000px). Below that it is plain tabs.
 - With `prefers-reduced-motion` or without JavaScript there are no pins and the page is a normal readable document.
 - The ALEF screens are loaded in two steps: the hero screen mounts straight away, the module screens when the section nears the viewport. The `.webp` images are the placeholders.
