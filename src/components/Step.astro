@@ -1,0 +1,22 @@
+---
+interface Props { n: number; title: string; text: string; chips: string[]; accent?: boolean }
+const { n, title, text, chips, accent = false } = Astro.props;
+---
+<li class:list={['step', { accent }]} data-reveal>
+  <div class="n" aria-hidden="true">{n}</div>
+  <h3>{title}</h3>
+  <p>{text}</p>
+  {chips.length > 0 && <ul class="chips">{chips.map((c) => <li class="chip">{c}</li>)}</ul>}
+</li>
+<style>
+  .step { position: relative; z-index: 1; list-style: none; }
+  .n {
+    width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; background: var(--white); border: 1px solid var(--line);
+    font-family: var(--font-display); font-weight: 600; font-size: 22px; margin-bottom: 24px; box-shadow: var(--shadow-card);
+  }
+  .accent .n { background: var(--mint); border-color: var(--mint); color: #0b1220; }
+  h3 { font-size: 26px; font-weight: 600; margin-bottom: 10px; }
+  p { color: var(--ink-2); font-size: 16px; max-width: 24em; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .chip { font-size: 12.5px; font-family: var(--font-display); color: var(--ink-2); background: var(--white); border: 1px solid var(--line); border-radius: var(--r-pill); padding: 4px 12px; }
+</style>

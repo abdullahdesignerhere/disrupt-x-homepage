@@ -1,0 +1,65 @@
+---
+// A product screen in a browser-style frame. The static image is the placeholder and the no-JS version;
+// scripts mount the live ALEF recreation into .alefhost when `view` is set.
+interface Props {
+  image: { src: string; width: number; height: number; alt: string };
+  view?: string;
+  chrome?: string;
+  caption?: string;
+  lazy?: boolean;
+  closeup?: boolean;
+}
+const { image, view, chrome, caption, lazy = false, closeup = false } = Astro.props;
+---
+<figure class:list={['frame', { closeup, 'has-chrome': !!chrome }]} data-frame>
+  {chrome && (
+    <div class="chrome" aria-hidden="true">
+      <span class="dots"><i></i><i></i><i></i></span>
+      <span class="url">{chrome}</span>
+      <span></span>
+    </div>
+  )}
+  <div class="stage" data-stage>
+    <div class="imgs" role="img" aria-label={image.alt}>
+      <div class="alefhost" data-alef-view={view} data-alef-host inert>
+        <img
+          class="fb" src={image.src} width={image.width} height={image.height} alt={image.alt}
+          loading={lazy ? 'lazy' : 'eager'} decoding="async"
+        />
+      </div>
+    </div>
+    <slot name="overlay" />
+  </div>
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+<style>
+  .frame { margin: 0; position: relative; width: 100%; min-width: 0; }
+  .chrome {
+    height: 36px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 14px;
+    border: 1px solid var(--line-2); border-bottom: 1px solid #e9ecf2; border-radius: 14px 14px 0 0; background: #f3f4f8;
+  }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: #d5d9e2; }
+  .url {
+    font-family: var(--font-display); font-size: 11.5px; color: #5d6577; background: #fff;
+    border: 1px solid #e9ecf2; border-radius: 8px; padding: 3px 40px; white-space: nowrap;
+  }
+  .stage { position: relative; box-shadow: var(--glow); border-radius: 14px; }
+  .has-chrome .stage { border-radius: 0 0 14px 14px; }
+  .imgs {
+    position: relative; aspect-ratio: var(--ar, 1.6); overflow: hidden; background: #fff;
+    border: 1px solid var(--line-2); border-radius: 14px;
+  }
+  .has-chrome .imgs { border-top: 0; border-radius: 0 0 14px 14px; }
+  .alefhost { position: relative; width: 100%; pointer-events: none; transition: opacity 0.3s ease; line-height: normal; }
+  .alefhost.sw { opacity: 0; }
+  .fb { display: block; width: 100%; height: auto; }
+  figcaption { margin-top: 12px; font-size: 12.5px; color: var(--muted); text-align: center; }
+
+  /* Phones, story only: the screen becomes a window that pans and zooms (story.ts sets --closeup-h and the transform). */
+  @media (max-width: 760px) {
+    :global(.js) .closeup .imgs { aspect-ratio: auto; height: var(--closeup-h, 300px); }
+    :global(.js) .closeup .alefhost { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+    :global(.js) .closeup figcaption { font-size: 11.5px; }
+  }
+</style>

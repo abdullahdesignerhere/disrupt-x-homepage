@@ -1,0 +1,23 @@
+---
+import Logo from './Logo.astro';
+interface Props { brand: { homeLabel: string; url: string }; links: { label: string; href: string }[]; note: string }
+const { brand, links, note } = Astro.props;
+---
+<footer>
+  <div class="wrap foot">
+    <a class="flogo" href={brand.url} aria-label={brand.homeLabel}><Logo uid="footer" /></a>
+    <nav class="links" aria-label="Footer">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+    <p class="note">{note}</p>
+  </div>
+</footer>
+<style>
+  footer { background: var(--footer-bg); color: var(--muted); padding: 56px 0 64px; font-size: 14px; }
+  .foot { display: grid; gap: 26px; }
+  .flogo { display: inline-block; justify-self: start; border-radius: 6px; }
+  .links { display: flex; flex-wrap: wrap; gap: 4px 28px; padding: 14px 0; border-top: 1px solid rgba(157, 164, 176, 0.18); border-bottom: 1px solid rgba(157, 164, 176, 0.18); }
+  .links a { color: var(--ink-2); text-decoration: none; font-family: var(--font-display); font-size: 14px; padding: 10px 0; min-height: 44px; display: inline-flex; align-items: center; }
+  .links a:hover { color: #fff; text-decoration: underline; }
+  .note { font-size: 13.5px; }
+</style>

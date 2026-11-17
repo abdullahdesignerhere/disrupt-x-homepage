@@ -1,0 +1,24 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import AudienceBlock from './AudienceBlock.astro';
+interface Props {
+  eyebrow: string; heading: string; caption: string;
+  items: { id: string; team: string; headline: string; text: string; bullets: string[]; linkLabel: string; linkHref: string; image: any }[];
+}
+const { eyebrow, heading, caption, items } = Astro.props;
+---
+<section class="who" id="who" aria-labelledby="who-h">
+  <div class="wrap">
+    <SectionHeading eyebrow={eyebrow} heading={heading} id="who-h" />
+    <div class="list">
+      {items.map((a, i) => <AudienceBlock {...a} flip={i % 2 === 1} headingId={`aud-${a.id}`} />)}
+    </div>
+    <p class="cap">{caption}</p>
+  </div>
+</section>
+<style>
+  .who { padding: 120px 0 100px; }
+  .list { display: grid; gap: 96px; margin-top: 72px; }
+  .cap { margin-top: 56px; font-size: 12.5px; color: var(--muted); text-align: center; }
+  @media (max-width: 900px) { .who { padding: 84px 0 72px; } .list { gap: 64px; margin-top: 48px; } }
+</style>

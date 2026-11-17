@@ -1,0 +1,78 @@
+---
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+interface Props {
+  brand: { homeLabel: string };
+  nav: { label: string; href: string }[];
+  navLabel: string;
+  cta: { label: string; href: string };
+  menuOpenLabel: string;
+  menuCloseLabel: string;
+}
+const { brand, nav, navLabel, cta, menuOpenLabel, menuCloseLabel } = Astro.props;
+---
+<header class="sitehead" data-header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label={brand.homeLabel}><Logo uid="header" /></a>
+    <nav id="site-nav" class="links" aria-label={navLabel} data-nav>
+      <ul>
+        {nav.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="right">
+      <Button href={cta.href} size="sm">{cta.label}</Button>
+      <button
+        class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav"
+        aria-label={menuOpenLabel} data-menu-btn data-open-label={menuOpenLabel} data-close-label={menuCloseLabel}
+      >
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </div>
+  <div class="progress" aria-hidden="true"><i data-progress></i></div>
+</header>
+<style>
+  .sitehead {
+    position: fixed; inset: 0 0 auto 0; z-index: 50;
+    background: var(--header-bg); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; gap: 36px; height: var(--header-h); }
+  .logo { display: block; border-radius: 6px; }
+  .links ul {
+    display: flex; gap: 28px; list-style: none; margin: 0; padding: 0;
+    font-size: 14.5px; color: var(--ink-2); font-family: var(--font-display);
+  }
+  .links a { text-decoration: none; padding: 10px 0; display: inline-block; }
+  .links a:hover { color: var(--ink); }
+  .right { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+  .menu-btn {
+    display: none; width: 44px; height: 44px; padding: 0; border-radius: 12px;
+    background: transparent; border: 1px solid var(--line-2); color: var(--ink); cursor: pointer;
+    place-items: center;
+  }
+  .bars { display: grid; gap: 5px; width: 18px; }
+  .bars i { display: block; height: 2px; background: currentColor; border-radius: 2px; transition: transform 0.25s, opacity 0.2s; }
+  .menu-btn[aria-expanded='true'] .bars i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-btn[aria-expanded='true'] .bars i:nth-child(2) { opacity: 0; }
+  .menu-btn[aria-expanded='true'] .bars i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; }
+  .progress i { display: block; height: 100%; background: var(--mint); transform-origin: left; transform: scaleX(0); }
+
+  @media (max-width: 920px) {
+    .nav { gap: 12px; }
+    .links { display: none; }
+    /* The menu button only appears when the script has run, so no-JS visitors are not left with a dead control. */
+    :global(.js-nav) .menu-btn { display: grid; }
+    :global(.js-nav) .links {
+      position: absolute; left: 0; right: 0; top: 100%;
+      background: #0b0d12; border-bottom: 1px solid var(--line);
+      padding: 6px var(--gutter) 18px;
+      display: none;
+    }
+    :global(.js-nav) .links.open { display: block; }
+    .links ul { flex-direction: column; gap: 0; font-size: 18px; }
+    .links li + li { border-top: 1px solid var(--line); }
+    .links a { display: block; padding: 15px 2px; min-height: 48px; }
+  }
+</style>

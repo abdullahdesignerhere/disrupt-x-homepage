@@ -1,0 +1,22 @@
+---
+interface Props { question: string; answer: string; open?: boolean }
+const { question, answer, open = false } = Astro.props;
+---
+<details open={open}>
+  <summary>{question}</summary>
+  <p>{answer}</p>
+</details>
+<style>
+  details { border-bottom: 1px solid var(--line); padding: 0 4px; }
+  summary {
+    cursor: pointer; list-style: none; font-family: var(--font-display); font-weight: 500; font-size: 19px; padding: 22px 0; min-height: 44px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; letter-spacing: -0.01em;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+'; width: 30px; height: 30px; flex: none; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line-2);
+    font-size: 18px; line-height: 1; transition: transform 0.25s, background 0.25s;
+  }
+  details[open] summary::after { transform: rotate(45deg); background: var(--mint); border-color: var(--mint); color: #0b1220; }
+  p { color: var(--ink-2); padding-bottom: 22px; max-width: 60ch; }
+</style>

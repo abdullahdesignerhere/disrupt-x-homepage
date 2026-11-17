@@ -1,0 +1,21 @@
+---
+interface Award { alt: string; line1: string; line2: string; src: string; width: number; height: number }
+interface Props { awards: Award[] }
+const { awards } = Astro.props;
+---
+<ul class="awards">
+  {awards.map((a) => (
+    <li class="award">
+      <img src={a.src} width={a.width} height={a.height} alt={a.alt} style={`height:${a.height}px`} loading="lazy" decoding="async" />
+      <span>{a.line1}<br />{a.line2}</span>
+    </li>
+  ))}
+</ul>
+<style>
+  .awards {
+    list-style: none; padding: 44px 0 0; display: flex; gap: 28px 56px; justify-content: center; align-items: center; flex-wrap: wrap;
+    margin: 56px 0 0; border-top: 1px solid var(--line);
+  }
+  .award { display: flex; align-items: center; gap: 16px; font-family: var(--font-display); font-size: 13px; line-height: 1.35; color: var(--muted); max-width: 230px; }
+  img { width: auto; flex: none; }
+</style>

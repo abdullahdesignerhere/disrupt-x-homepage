@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import '@fontsource/poppins/latin-400.css';
+import '@fontsource/poppins/latin-500.css';
+import '@fontsource/poppins/latin-600.css';
+import '@fontsource/poppins/latin-700.css';
+import '@fontsource/roboto/latin-400.css';
+import '@fontsource/roboto/latin-500.css';
+// The two faces used above the fold are preloaded: Poppins 600 (headline) and Roboto 400 (body).
+import poppins600 from '@fontsource/poppins/files/poppins-latin-600-normal.woff2?url';
+import roboto400 from '@fontsource/roboto/files/roboto-latin-400-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  themeColor: string;
+  ogImage: string;
+  ogImageAlt: string;
+  siteName: string;
+  jsonLd: object[];
+  skipLabel: string;
+}
+const { title, description, themeColor, ogImage, ogImageAlt, siteName, jsonLd, skipLabel } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogUrl = new URL(ogImage, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content={themeColor} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="data:," />
+    <link rel="preload" as="font" type="font/woff2" href={poppins600} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={roboto400} crossorigin />
+    {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{skipLabel}</a>
+    <slot />
+  </body>
+</html>

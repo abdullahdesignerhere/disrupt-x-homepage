@@ -1,0 +1,58 @@
+---
+// One "who it's for" row: team label, outcome headline, one sentence, three bullets, link, proving image.
+interface Props {
+  team: string;
+  headline: string;
+  text: string;
+  bullets: string[];
+  linkLabel: string;
+  linkHref: string;
+  image: { src: string; width: number; height: number; alt: string };
+  flip?: boolean;
+  headingId: string;
+}
+const { team, headline, text, bullets, linkLabel, linkHref, image, flip = false, headingId } = Astro.props;
+---
+<article class:list={['aud', { flip }]} data-reveal aria-labelledby={headingId}>
+  <div class="copy">
+    <p class="team">{team}</p>
+    <h3 id={headingId}>{headline}</h3>
+    <p class="text">{text}</p>
+    <ul>{bullets.map((b) => <li>{b}</li>)}</ul>
+    <a class="more" href={linkHref}>{linkLabel} <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="shot">
+    <img src={image.src} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />
+  </div>
+</article>
+<style>
+  .aud { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 64px; align-items: center; }
+  .aud.flip .copy { order: 2; }
+  .team {
+    display: inline-block; font-family: var(--font-display); font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; color: var(--accent); border: 1px solid rgba(0, 255, 206, 0.4); border-radius: var(--r-pill); padding: 5px 12px;
+  }
+  h3 { font-size: var(--fs-h3); font-weight: 600; margin: 18px 0 14px; }
+  .text { color: var(--ink-2); font-size: 18px; max-width: 28em; }
+  ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--ink-2); font-size: 16px; }
+  li { display: flex; gap: 12px; align-items: flex-start; }
+  li::before { content: ''; width: 7px; height: 7px; border-radius: 2px; background: var(--violet); margin-top: 10px; flex: none; }
+  .more {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; min-height: 46px; font-family: var(--font-display); font-weight: 500;
+    font-size: 15px; text-decoration: none; color: var(--ink); border: 1px solid var(--line-2); border-radius: var(--r-pill); padding: 11px 22px;
+    transition: border-color 0.2s;
+  }
+  .more:hover { border-color: var(--ink); }
+  .more span { transition: transform 0.2s; }
+  .more:hover span { transform: translateX(3px); }
+  .shot {
+    background: var(--white); border: 1px solid var(--line-2); border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--glow);
+    line-height: 0; justify-self: stretch;
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  @media (max-width: 900px) {
+    .aud { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .aud.flip .copy { order: 0; }
+    .text { font-size: 17px; }
+  }
+</style>

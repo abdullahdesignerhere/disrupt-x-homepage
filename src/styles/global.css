@@ -19,7 +19,7 @@ body {
 svg { max-width: 100%; }
 a { color: inherit; }
 p { margin: 0; }
-img { max-width: 100%; height: auto; }
+img { max-width: 100%; }
 
 h1, h2, h3 {
   font-family: var(--font-display);
@@ -68,3 +68,9 @@ h1, h2, h3 {
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .reveal-ready [data-reveal] { opacity: 1; transform: none; }
 }
+
+/* The ALEF 360° recreation (src/lib/alef) brings its own styles under .alef.
+   These resets stop the page's own rules from leaking into it. */
+.alef svg { max-width: none; }
+.alef a { color: inherit; }
+.alef { text-wrap: wrap; letter-spacing: normal; text-transform: none; }

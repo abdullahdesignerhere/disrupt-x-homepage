@@ -1,0 +1,81 @@
+---
+import Eyebrow from './Eyebrow.astro';
+import type { ComponentProps } from 'astro/types';
+import ModulePanel from './ModulePanel.astro';
+interface Props {
+  eyebrow: string; heading: string; sub: string; tabsLabel: string;
+  modules: (ComponentProps<typeof ModulePanel> & { tabLabel: string })[];
+}
+const { eyebrow, heading, sub, tabsLabel, modules } = Astro.props;
+---
+<section class="modules" id="platform" aria-labelledby="mod-h" data-modules>
+  <div class="mod-in">
+    <div class="wrap mhead">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h2 id="mod-h">{heading}</h2>
+      <p class="sub">{sub}</p>
+    </div>
+    <div class="wrap tabswrap">
+      <div class="mtabs" role="tablist" aria-label={tabsLabel} data-tabs>
+        <i class="mpill" aria-hidden="true" data-pill></i>
+        {modules.map((m, i) => (
+          <button
+            class="mtab" role="tab" type="button" id={`tab-${m.id}`} aria-controls={`panel-${m.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
+          >{m.tabLabel}</button>
+        ))}
+      </div>
+      <div class="mprog" aria-hidden="true"><i data-prog></i></div>
+    </div>
+    <div class="mviewport" data-viewport>
+      <div class="mtrack" data-track>
+        {modules.map((m, i) => <ModulePanel {...m} active={i === 0} />)}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .modules { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); position: relative; }
+  .mod-in { padding: 100px 0 90px; }
+  .mhead { display: flex; align-items: baseline; gap: 8px 28px; flex-wrap: wrap; }
+  .mhead :global(.eyebrow) { flex-basis: 100%; }
+  h2 { font-size: var(--fs-h2-sm); font-weight: 600; }
+  .sub { color: var(--muted); font-size: 17px; }
+  .mtabs { display: none; gap: 8px; overflow-x: auto; margin: 22px 0 22px; padding-bottom: 4px; scrollbar-width: none; position: relative; }
+  .mtabs::-webkit-scrollbar { display: none; }
+  :global(.tabs-js) .mtabs { display: flex; }
+  .mtab {
+    flex: none; font: 500 14px var(--font-display); color: var(--ink-2); background: transparent; border: 1px solid var(--line-2);
+    border-radius: var(--r-pill); padding: 9px 17px; min-height: 44px; cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s;
+    position: relative; z-index: 1;
+  }
+  .mtab:hover { border-color: var(--ink); }
+  .mtab[aria-selected='true'] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .mviewport { overflow: hidden; }
+  .mpill { position: absolute; left: 0; top: 0; border-radius: var(--r-pill); background: var(--ink); z-index: 0; pointer-events: none; display: none; }
+  .mprog { display: none; }
+
+  /* pinned desktop */
+  :global(.mpin) .modules { height: 100vh; padding-top: var(--header-h); }
+  :global(.mpin) .mod-in { height: 100%; display: flex; flex-direction: column; padding: 12px 0 24px; }
+  :global(.mpin) .mod-in > .wrap { width: 100%; }
+  :global(.mpin) .mtabs { margin: 12px 0 12px; }
+  :global(.mpin) .mviewport { flex: 1; min-height: 0; }
+  :global(.mpin) .mtrack { position: relative; width: 100%; height: 100%; }
+  :global(.mpin) .mtab[aria-selected='true'] { background: transparent; border-color: transparent; color: var(--paper); }
+  :global(.mpin) .mpill { display: block; }
+  :global(.mpin) .mprog { display: block; height: 2px; margin: 0 0 6px; background: var(--line); border-radius: 2px; overflow: hidden; }
+  :global(.mpin) .mprog i { display: block; height: 100%; background: var(--accent); }
+
+  /* pinned and narrow */
+  :global(.mstack) .mod-in { padding: 4px 0 64px; }
+  :global(.mstack) h2 { font-size: clamp(24px, 3.4vw, 32px); }
+  :global(.mstack) .sub { font-size: 14.5px; }
+  :global(.nohp) .sub { display: none; }
+  :global(.mstack) .mtabs { margin: 8px 0 8px; }
+
+  @media (max-width: 900px) {
+    .mod-in { padding: 70px 0 60px; }
+    .sub { font-size: 15.5px; }
+  }
+</style>

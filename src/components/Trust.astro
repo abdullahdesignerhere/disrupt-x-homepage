@@ -1,0 +1,18 @@
+---
+import LogoWall from './LogoWall.astro';
+import Awards from './Awards.astro';
+interface Props { caption: string; label: string; logos: any[]; awards: any[] }
+const { caption, label, logos, awards } = Astro.props;
+---
+<section class="trust" id="trust" aria-label={label}>
+  <div class="wrap">
+    <p class="cap">{caption}</p>
+    <LogoWall logos={logos} />
+    <Awards awards={awards} />
+  </div>
+</section>
+<style>
+  .trust { padding: 84px 0 88px; background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .cap { font-family: var(--font-display); font-size: 15px; color: var(--ink-2); text-align: center; }
+  @media (max-width: 900px) { .trust { padding: 64px 0; } }
+</style>

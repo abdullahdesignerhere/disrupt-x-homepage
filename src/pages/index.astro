@@ -1,0 +1,64 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import StoryStage from '../components/StoryStage.astro';
+import Trust from '../components/Trust.astro';
+import Statement from '../components/Statement.astro';
+import Audiences from '../components/Audiences.astro';
+import Modules from '../components/Modules.astro';
+import CtaBand from '../components/CtaBand.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Faq from '../components/Faq.astro';
+import DemoForm from '../components/DemoForm.astro';
+import Footer from '../components/Footer.astro';
+
+const site = (await getEntry('site', 'site'))!.data;
+const byOrder = <T extends { data: { order: number } }>(list: T[]) => [...list].sort((a, b) => a.data.order - b.data.order);
+
+const days = byOrder(await getCollection('storyDays')).map((e) => e.data);
+const logos = byOrder(await getCollection('logos')).map((e) => e.data);
+const awards = byOrder(await getCollection('awards')).map((e) => e.data);
+const steps = byOrder(await getCollection('steps')).map((e) => e.data);
+const faqs = byOrder(await getCollection('faqs')).map((e) => e.data);
+const moduleEntries = byOrder(await getCollection('modules'));
+const modules = moduleEntries.map((e) => ({ id: e.id, ...e.data }));
+
+const audiences = await Promise.all(
+  byOrder(await getCollection('audiences')).map(async (e) => {
+    const mod = (await getEntry(e.data.module))!;
+    return { id: e.id, ...e.data, linkLabel: mod.data.linkLabel, linkHref: mod.data.linkHref };
+  })
+);
+
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'Organization', name: site.brand.name, url: site.brand.url },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })),
+  },
+];
+---
+<Base
+  title={site.title} description={site.description} themeColor={site.themeColor}
+  ogImage={site.ogImage} ogImageAlt={site.ogImageAlt} siteName={site.brand.name} jsonLd={jsonLd} skipLabel={site.skipToContent}
+>
+  <Header brand={site.brand} nav={site.nav} navLabel={site.navLabel} cta={site.cta} menuOpenLabel={site.menuOpenLabel} menuCloseLabel={site.menuCloseLabel} />
+  <main id="main">
+    <span id="top"></span>
+    <StoryStage hero={site.hero} story={site.story} cta={site.cta} days={days} />
+    <Trust caption={site.trust.caption} label={site.trust.label} logos={logos} awards={awards} />
+    <Statement {...site.statement} />
+    <Audiences eyebrow={site.who.eyebrow} heading={site.who.heading} caption={site.who.caption} items={audiences} />
+    <Modules eyebrow={site.platform.eyebrow} heading={site.platform.heading} sub={site.platform.sub} tabsLabel={site.platform.tabsLabel} modules={modules} />
+    <CtaBand text={site.band.text} label={site.band.label} href={site.cta.href} />
+    <HowItWorks eyebrow={site.how.eyebrow} heading={site.how.heading} intro={site.how.intro} steps={steps} />
+    <Faq eyebrow={site.faq.eyebrow} heading={site.faq.heading} items={faqs} />
+    <DemoForm {...site.demo} />
+  </main>
+  <Footer brand={site.brand} links={site.footer.links} note={site.footer.note} />
+  <script>
+    import '../scripts/main.ts';
+  </script>
+</Base>

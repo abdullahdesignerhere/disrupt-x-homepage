@@ -1,0 +1,79 @@
+---
+// One platform module: text on one side, the product screen on the other. Built from a `modules` entry.
+import BrowserFrame from './BrowserFrame.astro';
+interface Props {
+  id: string;
+  tag: string;
+  headline: string;
+  description: string;
+  bullets: string[];
+  linkLabel: string;
+  linkHref: string;
+  view?: string;
+  image: { src: string; width: number; height: number; alt: string };
+  active?: boolean;
+}
+const { id, tag, headline, description, bullets, linkLabel, linkHref, view, image, active = false } = Astro.props;
+const ratio = (image.width / image.height).toFixed(4);
+---
+<article class:list={['mpanel', { 'is-active': active }]} role="tabpanel" id={`panel-${id}`} aria-labelledby={`tab-${id}`} data-panel>
+  <div class="wrap mp">
+    <div class="mtext">
+      <span class="mp-tag">{tag}</span>
+      <h3>{headline}</h3>
+      <p>{description}</p>
+      <ul>{bullets.map((b) => <li>{b}</li>)}</ul>
+      <a class="mp-link" href={linkHref}>{linkLabel} <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="mshot" style={`--ar:${ratio}`} data-live={view ? '' : undefined}>
+      <BrowserFrame image={image} view={view} lazy />
+    </div>
+  </div>
+</article>
+<style>
+  .mpanel { padding: 44px 0; border-top: 1px solid var(--line); }
+  .mp { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: center; }
+  .mp-tag { font-family: var(--font-display); font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h3 { font-size: var(--fs-h3); font-weight: 600; margin: 14px 0 16px; }
+  .mtext p { color: var(--ink-2); font-size: 18px; max-width: 28em; }
+  ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--ink-2); font-size: 16px; }
+  li { display: flex; gap: 12px; align-items: flex-start; }
+  li::before { content: ''; width: 7px; height: 7px; border-radius: 2px; background: var(--violet); margin-top: 10px; flex: none; }
+  .mp-link {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 30px; min-height: 46px; font-family: var(--font-display); font-weight: 500; font-size: 15px;
+    text-decoration: none; color: var(--ink); border: 1px solid var(--line-2); border-radius: var(--r-pill); padding: 11px 22px; transition: border-color 0.2s;
+  }
+  .mp-link:hover { border-color: var(--ink); }
+  .mp-link span { transition: transform 0.2s; }
+  .mp-link:hover span { transform: translateX(3px); }
+  .mshot { width: 100%; justify-self: end; }
+
+  /* No-JS: every panel is shown in a stack. With JS: tabbed (phones, reduced motion) or pinned (761px and up). */
+  :global(.tabs-js) .mpanel { border-top: 0; padding: 8px 0; }
+  :global(.tabbed) .mpanel { display: none; }
+  :global(.tabbed) .mpanel.is-active { display: block; }
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.tabbed) .mpanel.is-active { animation: mfade 0.5s ease both; }
+    @keyframes mfade { from { opacity: 0; } to { opacity: 1; } }
+  }
+
+  /* Pinned desktop: panels are stacked on top of each other and cross-fade */
+  :global(.mpin) .mpanel { position: absolute; inset: 0; padding: 0; display: flex; align-items: center; opacity: 0; visibility: hidden; pointer-events: none; }
+  :global(.mpin) .mpanel.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+  :global(.mpin) .mpanel > .wrap { width: 100%; }
+  :global(.mpin) .mp { height: 100%; align-items: center; grid-template-columns: minmax(0, 37fr) minmax(0, 63fr); gap: 48px; }
+  :global(.mpin) h3 { font-size: clamp(28px, 3vw, 42px); }
+  :global(.mpin) .mshot { width: min(100%, calc((100vh - 390px) * var(--ar))); }
+
+  /* Pinned and narrow (761 to 1000px): text above, screen below */
+  :global(.mstack) .mp { grid-template-columns: minmax(0, 1fr); gap: 12px; align-content: center; }
+  :global(.mstack) h3 { font-size: clamp(22px, 3.2vw, 30px); margin: 6px 0 8px; }
+  :global(.mstack) .mtext p { font-size: 15.5px; max-width: none; }
+  :global(.mstack) ul { margin-top: 10px; gap: 4px; font-size: 14px; }
+  :global(.mstack) li::before { margin-top: 7px; }
+  :global(.nobul) ul { display: none; }
+  :global(.mstack) .mp-link { margin-top: 10px; padding: 7px 16px; font-size: 14px; min-height: 44px; }
+  :global(.mstack) .mshot { justify-self: center; width: min(100%, calc(var(--mimg-h) * var(--ar))); }
+
+  @media (max-width: 900px) { .mp { grid-template-columns: 1fr; gap: 28px; } }
+</style>

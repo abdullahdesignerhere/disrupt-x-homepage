@@ -1,0 +1,38 @@
+---
+// The one button style: #19A993 with dark text. Renders a link, or a button when no href is given.
+interface Props {
+  href?: string;
+  size?: 'sm' | 'md' | 'lg';
+  arrow?: boolean;
+  block?: boolean;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+const { href, size = 'md', arrow = true, block = false, type = 'button', class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag class:list={['btn', `btn-${size}`, { block }, className]} href={href} type={href ? undefined : type} {...rest}>
+  <slot />{arrow && <span class="arrow" aria-hidden="true">→</span>}
+</Tag>
+<style>
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: var(--font-display); font-weight: 500; font-size: 15px; line-height: 1.2;
+    text-decoration: none; border-radius: var(--r-pill);
+    padding: 13px 24px; min-height: 46px;
+    border: 1px solid transparent; cursor: pointer;
+    background: var(--btn-bg); color: var(--btn-tx);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: var(--btn-shadow); }
+  .btn-lg { font-size: 16.5px; font-weight: 600; padding: 16px 30px; min-height: 54px; }
+  .btn-sm { font-size: 14px; padding: 10px 20px; min-height: 44px; white-space: nowrap; }
+  .block { width: 100%; }
+  .arrow {
+    display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--mint); color: #0b1220; font-size: 13px; margin-right: -8px;
+    transition: transform 0.2s;
+  }
+  .btn-sm .arrow { width: 20px; height: 20px; }
+  .btn:hover .arrow { transform: translateX(3px); }
+</style>

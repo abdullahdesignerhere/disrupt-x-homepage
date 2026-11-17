@@ -1,0 +1,116 @@
+---
+// Hero and story in one pinned stage: the hero text lifts away, the product frame rises and flattens,
+// then four days play out. Without JS (or with reduced motion) it is a normal readable block.
+import Eyebrow from './Eyebrow.astro';
+import Button from './Button.astro';
+import DayBar from './DayBar.astro';
+import BrowserFrame from './BrowserFrame.astro';
+interface Day { day: string; without: string; withoutIsBad: boolean; with: string; target: string; note: string; view: string }
+interface Props {
+  hero: { eyebrow: string; titleStart: string; titleMark: string; titleEnd: string; lead: string; proof: string };
+  story: any;
+  cta: { label: string; href: string };
+  days: Day[];
+}
+const { hero, story, cta, days } = Astro.props;
+const image = { src: '/assets/app-asset.webp', width: 1440, height: 900, alt: story.frameAlt };
+---
+<section class="hero story" id="story" aria-labelledby="hero-title" data-story>
+  <div class="hero-in" data-hero-in>
+    <Eyebrow bar={false}>{hero.eyebrow}</Eyebrow>
+    <h1 id="hero-title">{hero.titleStart}<span class="mark">{hero.titleMark}</span>{hero.titleEnd}</h1>
+    <p class="what">{hero.lead}</p>
+    <Button href={cta.href} size="lg" class="hero-btn">{cta.label}</Button>
+    <p class="hero-proof">{hero.proof}</p>
+  </div>
+  <div class="sstage" data-sstage>
+    <DayBar days={days} story={story} ctaHref={cta.href} />
+    <BrowserFrame image={image} view="asset" chrome={story.frameLabel} caption={story.caption} closeup>
+      <div slot="overlay" class="callouts" aria-hidden="true" data-callouts>
+        {days.map((d) => (
+          <div class="co" data-target={d.target} data-view={d.view}>
+            <svg class="cl"><line x1="0" y1="0" x2="0" y2="0"></line></svg>
+            <i class="ring"></i>
+            <div class="ccard"><b>{story.cardLabel}</b><span>{d.note}</span></div>
+          </div>
+        ))}
+      </div>
+    </BrowserFrame>
+  </div>
+</section>
+<style>
+  .hero {
+    position: relative; padding: 0; text-align: center; overflow: hidden;
+    background: radial-gradient(1000px 460px at 50% 0, var(--hero-glow), transparent 72%), var(--paper);
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask: radial-gradient(ellipse 70% 80% at 50% 0, #000, transparent 75%);
+    mask: radial-gradient(ellipse 70% 80% at 50% 0, #000, transparent 75%);
+  }
+  .hero-in { padding: 190px 28px 64px; max-width: 1320px; margin: 0 auto; position: relative; z-index: 1; }
+  h1 { font-size: var(--fs-h1); font-weight: 600; margin: 22px auto 28px; max-width: 14em; }
+  .what { font-family: var(--font-display); font-size: var(--fs-lead); line-height: 1.45; color: var(--ink-2); max-width: 31em; margin: 0 auto; font-weight: 400; }
+  .hero-in :global(.hero-btn), .hero-in > :global(a) { margin-top: 40px; }
+  /* Entrance: plain CSS so the headline is painted at once and nothing flashes when scripts load. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-in > :global(*) { animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .hero-in > :global(*:nth-child(2)) { animation-delay: 0.08s; }
+    .hero-in > :global(*:nth-child(3)) { animation-delay: 0.16s; }
+    .hero-in > :global(*:nth-child(4)) { animation-delay: 0.24s; }
+    .hero-in > :global(*:nth-child(5)) { animation-delay: 0.32s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(30px); } }
+  }
+  .hero-proof { margin-top: 30px; font-family: var(--font-display); font-size: 14px; color: var(--muted); }
+  .sstage { position: relative; max-width: 1380px; margin: 0 auto; padding: 0 28px 80px; }
+  .sstage > :global(.frame) { width: var(--bw, 100%); margin-left: auto; margin-right: auto; }
+
+  /* callouts */
+  .callouts { position: absolute; inset: 0; pointer-events: none; display: none; }
+  :global(.js) .callouts { display: block; }
+  .co { position: absolute; inset: 0; visibility: hidden; }
+  .co.on { visibility: visible; }
+  .ring {
+    position: absolute; left: 0; top: 0; width: 0; height: 0; border-radius: 10px; border: 2px solid var(--mint);
+    box-shadow: 0 0 0 3px rgba(0, 255, 206, 0.18), 0 0 22px rgba(0, 255, 206, 0.45);
+    opacity: 0; transform: scale(0.7); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .co.on .ring { opacity: 1; transform: none; animation: rpulse 2.6s ease-in-out 0.8s infinite; }
+  @keyframes rpulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(0, 255, 206, 0.18), 0 0 22px rgba(0, 255, 206, 0.45); }
+    50% { box-shadow: 0 0 0 8px rgba(0, 255, 206, 0.08), 0 0 28px rgba(0, 255, 206, 0.25); }
+  }
+  .cl { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cl line { stroke: var(--mint); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: 0; transition: opacity 0.5s ease 0.2s; }
+  .co.on .cl line { opacity: 0.9; }
+  .ccard {
+    position: absolute; left: 0; top: 0; width: 30%; min-width: 190px; max-width: 300px; background: #0b1214; color: #f2f6f5;
+    border: 1px solid rgba(0, 255, 206, 0.5); border-radius: 10px; padding: 10px 13px 11px; font-size: 13.5px; line-height: 1.4;
+    box-shadow: 0 14px 30px -10px rgba(0, 0, 0, 0.55); opacity: 0; transform: translateY(10px);
+    transition: opacity 0.5s ease 0.3s, transform 0.6s ease 0.3s; font-family: var(--font-display); text-align: left;
+  }
+  .co.on .ccard { opacity: 1; transform: none; }
+  .ccard b { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint); margin-bottom: 4px; font-weight: 600; }
+
+  /* pinned (JS) mode */
+  :global(.js) .hero { height: 100vh; min-height: 620px; }
+  :global(.js) .hero-in { position: absolute; left: 0; right: 0; top: calc(var(--header-h) + 5vh); padding: 0 28px; }
+  :global(.js) .sstage {
+    position: absolute; left: 0; right: 0; top: var(--header-h); bottom: 0; padding: 12px 28px 8px;
+    display: flex; flex-direction: column; align-items: center; pointer-events: none; z-index: 2;
+  }
+  :global(.js) .sstage > :global(.frame) { flex: none; }
+
+  @media (max-width: 900px) {
+    .hero-in { padding-top: 150px; }
+    :global(.js) .hero-in { top: calc(var(--header-h) + 3vh); }
+    :global(.js) .sstage { padding: 8px 16px 6px; }
+    .cl { display: none; }
+    .ccard { max-width: none; left: 0 !important; right: 0; top: calc(100% + 10px) !important; width: auto; min-width: 0; font-size: 13px; }
+    :global(.js) .sstage :global(.stage) { margin-bottom: 86px; }
+    h1 { font-size: clamp(34px, 9.4vw, 44px); }
+  }
+  @media (prefers-reduced-motion: reduce) { .co.on .ring { animation: none; } }
+</style>

@@ -23,7 +23,7 @@ const site = defineCollection({
     themeColor: z.string(),
     ogImage: z.string(),
     ogImageAlt: z.string(),
-    brand: z.object({ name: z.string(), homeLabel: z.string(), url: z.string().url() }),
+    brand: z.object({ name: z.string(), homeLabel: z.string(), url: z.url() }),
     nav: z.array(link),
     navLabel: z.string(),
     menuOpenLabel: z.string(),
@@ -85,7 +85,7 @@ const modules = defineCollection({
     description: z.string(),
     bullets: z.array(z.string()).min(1).max(6),
     linkLabel: z.string(),
-    linkHref: z.string().url(),
+    linkHref: z.url(),
     // Name of a live ALEF screen (see src/lib/alef). Leave out to show only the image.
     view: z.enum(['asset', 'workorders', 'cafm-dashboard', 'incidents', 'hseq-dashboard', 'permits', 'energy', 'iot']).optional(),
     image: image,

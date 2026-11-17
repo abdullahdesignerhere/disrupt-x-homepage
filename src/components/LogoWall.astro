@@ -1,0 +1,26 @@
+---
+interface Logo { name: string; src: string; width: number; height: number }
+interface Props { logos: Logo[] }
+const { logos } = Astro.props;
+---
+<ul class="logos">
+  {logos.map((l) => (
+    <li style={`--h:${l.height}px`}>
+      <img src={l.src} width={l.width} height={l.height} alt={l.name} loading="lazy" decoding="async" />
+    </li>
+  ))}
+</ul>
+<style>
+  .logos {
+    list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin: 40px 0 0;
+    border-top: 1px solid var(--line); border-left: 1px solid var(--line);
+  }
+  li { display: grid; place-items: center; height: 96px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 18px; }
+  img { height: var(--h, 38px); width: auto; max-width: 150px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.7; transition: opacity 0.3s; }
+  li:hover img { opacity: 1; }
+  @media (max-width: 860px) {
+    .logos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    li { height: 76px; padding: 0 12px; }
+    img { max-width: 100%; height: calc(var(--h, 38px) * 0.85); }
+  }
+</style>

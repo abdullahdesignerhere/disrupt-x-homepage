@@ -1,0 +1,15 @@
+---
+import Eyebrow from './Eyebrow.astro';
+interface Props { eyebrow: string; heading: string; id: string; size?: 'lg' | 'md' }
+const { eyebrow, heading, id, size = 'lg' } = Astro.props;
+---
+<div class="sh">
+  <Eyebrow>{eyebrow}</Eyebrow>
+  <h2 id={id} class={size}><slot name="title">{heading}</slot></h2>
+  <slot />
+</div>
+<style>
+  .sh h2 { margin-top: 16px; font-weight: 600; }
+  .lg { font-size: var(--fs-h2); }
+  .md { font-size: var(--fs-h2-sm); }
+</style>

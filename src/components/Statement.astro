@@ -1,0 +1,21 @@
+---
+interface Props { eyebrow: string; before: string; em: string; after: string }
+const { eyebrow, before, em, after } = Astro.props;
+import Eyebrow from './Eyebrow.astro';
+---
+<section class="statement" aria-labelledby="statement-h">
+  <div class="wrap">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h2 id="statement-h" class="read" data-read>{before}<em>{em}</em>{after}</h2>
+  </div>
+</section>
+<style>
+  .statement { padding: 150px 0 130px; }
+  .read {
+    font-family: var(--font-display); font-weight: 600; font-size: var(--fs-statement);
+    line-height: 1.12; letter-spacing: -0.03em; max-width: 20em; margin: 22px 0 0;
+  }
+  .read em { font-style: normal; color: var(--accent); }
+  /* word spans are added by reveal.ts */
+  @media (max-width: 900px) { .statement { padding: 100px 0 90px; } }
+</style>

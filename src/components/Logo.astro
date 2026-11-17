@@ -1,0 +1,14 @@
+---
+// Inline Disrupt-X wordmark. `uid` keeps the clipPath id unique when the logo appears twice.
+import raw from '../assets/logo-white.svg?raw';
+interface Props { uid: string }
+const { uid } = Astro.props;
+const svg = raw
+  .replaceAll('dxclipC', `dxclip-${uid}`)
+  .replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+---
+<span class="logo-svg" set:html={svg} />
+<style>
+  .logo-svg { display: block; line-height: 0; }
+  .logo-svg :global(svg) { height: 24px; width: auto; display: block; }
+</style>

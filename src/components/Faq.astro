@@ -1,0 +1,20 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import FaqItem from './FaqItem.astro';
+interface Props { eyebrow: string; heading: string; items: { question: string; answer: string }[] }
+const { eyebrow, heading, items } = Astro.props;
+---
+<section class="faq-sec" id="faq" aria-labelledby="faq-h">
+  <div class="wrap faq-wrap">
+    <SectionHeading eyebrow={eyebrow} heading={heading} id="faq-h" />
+    <div class="faq">
+      {items.map((f, i) => <FaqItem question={f.question} answer={f.answer} open={i === 0} />)}
+    </div>
+  </div>
+</section>
+<style>
+  .faq-sec { padding: 100px 0 120px; }
+  .faq-wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 56px; }
+  .faq { display: grid; gap: 0; border-top: 1px solid var(--rule); align-content: start; }
+  @media (max-width: 860px) { .faq-wrap { grid-template-columns: 1fr; gap: 28px; } .faq-sec { padding: 72px 0 84px; } }
+</style>
