@@ -3,3 +3,9 @@ dist
 .astro
 docs/checks/tmp
 dist-root
+
+# raw PNG output of the check script (compressed WebP copies are committed)
+docs/checks/shots/*.png
+docs/checks/sheet-*.png
+docs/checks/lighthouse-*.json
+!docs/checks/lighthouse-summary.json

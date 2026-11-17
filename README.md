@@ -72,7 +72,7 @@ python3 scripts/checks/run_checks.py      # scroll smoothness, tab order, overfl
                                           # keyboard, reduced motion, screenshots (needs playwright for Python)
 ```
 
-`results.json` holds the behaviour checks, `axe-summary.json` and `lighthouse-summary.json` the other two. Screenshots and the two contact sheets are in `docs/checks/shots/` and `docs/checks/sheet-*.png`. Axe lists colour contrast as "incomplete" for text over gradients; the muted text colour `#9DA4B0` on the page backgrounds was checked by hand (about 7:1).
+`results.json` holds the behaviour checks, `axe-summary.json` and `lighthouse-summary.json` the other two. Screenshots and the two contact sheets are in `docs/checks/shots/` and `docs/checks/sheet-*.webp` (compressed to WebP to keep the repository small; the check script writes PNG). Axe lists colour contrast as "incomplete" for text over gradients; the muted text colour `#9DA4B0` on the page backgrounds was checked by hand (about 7:1).
 
 ## Not done
 
