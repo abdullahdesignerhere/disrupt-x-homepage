@@ -72,8 +72,8 @@
       ],
       "pin": {
         "id": "platform",
-        "start": 8015,
-        "end": 10415
+        "start": 7995,
+        "end": 10395
       },
       "errors": []
     }
