@@ -141,7 +141,7 @@ const awards = defineCollection({
   loader: json('awards'),
   schema: z.object({
     order: z.number(),
-    alt: z.string(),
+    // The two text lines are the accessible name; the badge image itself is decorative.
     line1: z.string(),
     line2: z.string(),
     src: z.string(),

@@ -16,7 +16,7 @@ interface Props {
 const { id, tag, headline, description, bullets, linkLabel, linkHref, view, image, active = false } = Astro.props;
 const ratio = (image.width / image.height).toFixed(4);
 ---
-<article class:list={['mpanel', { 'is-active': active }]} role="tabpanel" id={`panel-${id}`} aria-labelledby={`tab-${id}`} data-panel>
+<div class:list={['mpanel', { 'is-active': active }]} role="tabpanel" id={`panel-${id}`} aria-labelledby={`tab-${id}`} data-panel>
   <div class="wrap mp">
     <div class="mtext">
       <span class="mp-tag">{tag}</span>
@@ -29,7 +29,7 @@ const ratio = (image.width / image.height).toFixed(4);
       <BrowserFrame image={image} view={view} lazy />
     </div>
   </div>
-</article>
+</div>
 <style>
   .mpanel { padding: 44px 0; border-top: 1px solid var(--line); }
   .mp { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: center; }

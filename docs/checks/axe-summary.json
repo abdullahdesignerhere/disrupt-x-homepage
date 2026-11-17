@@ -1,0 +1,16 @@
+{
+  "desktop-1440": {
+    "passes": 50,
+    "incomplete": [
+      "color-contrast"
+    ],
+    "violations": []
+  },
+  "mobile-390": {
+    "passes": 51,
+    "incomplete": [
+      "color-contrast"
+    ],
+    "violations": []
+  }
+}

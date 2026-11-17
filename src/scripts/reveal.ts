@@ -53,8 +53,14 @@ export function initReveal() {
     });
     read.textContent = '';
     parts.forEach((p) => read.appendChild(p));
+    // The dimmed state only starts once the block is about to scroll into view, so the text is never dim
+    // when it is on screen at rest (and never dim for assistive checks or no-JS visitors).
+    gsap.fromTo('[data-read] .w', { opacity: 1 }, {
+      opacity: 0.2, ease: 'none', immediateRender: false,
+      scrollTrigger: { trigger: read, start: 'top 140%', end: 'top 100%', scrub: true },
+    });
     gsap.fromTo('[data-read] .w', { opacity: 0.2 }, {
-      opacity: 1, stagger: 0.08, ease: 'none',
+      opacity: 1, stagger: 0.08, ease: 'none', immediateRender: false,
       scrollTrigger: { trigger: read, start: 'top 80%', end: 'bottom 55%', scrub: true },
     });
   }

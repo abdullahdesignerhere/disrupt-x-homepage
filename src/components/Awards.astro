@@ -1,12 +1,12 @@
 ---
-interface Award { alt: string; line1: string; line2: string; src: string; width: number; height: number }
+interface Award { line1: string; line2: string; src: string; width: number; height: number }
 interface Props { awards: Award[] }
 const { awards } = Astro.props;
 ---
 <ul class="awards">
   {awards.map((a) => (
     <li class="award">
-      <img src={a.src} width={a.width} height={a.height} alt={a.alt} style={`height:${a.height}px`} loading="lazy" decoding="async" />
+      <img src={a.src} width={a.width} height={a.height} alt="" style={`height:${a.height}px`} loading="lazy" decoding="async" />
       <span>{a.line1}<br />{a.line2}</span>
     </li>
   ))}
