@@ -1,0 +1,22 @@
+{
+  "order": 3,
+  "tag": "iBMS",
+  "tabLabel": "iBMS",
+  "headline": "Every building system on one screen.",
+  "description": "Live view of cooling, power and other equipment, with faults flagged by AI.",
+  "bullets": [
+    "Live building monitoring",
+    "AI fault detection",
+    "Energy tracking",
+    "Many sites"
+  ],
+  "linkLabel": "Explore iBMS",
+  "linkHref": "https://disrupt-x.io/alef-360-integrated-building-management-system/",
+  "view": "energy",
+  "image": {
+    "src": "/assets/app-energy.webp",
+    "width": 1440,
+    "height": 900,
+    "alt": "ALEF 360° iBMS energy dashboard"
+  }
+}

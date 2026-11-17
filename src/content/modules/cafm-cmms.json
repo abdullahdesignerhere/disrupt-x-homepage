@@ -1,0 +1,22 @@
+{
+  "order": 2,
+  "tag": "CAFM | CMMS",
+  "tabLabel": "CAFM | CMMS",
+  "headline": "Maintenance that runs on schedule.",
+  "description": "Work orders, planned maintenance, technicians, subcontractors and spare parts.",
+  "bullets": [
+    "Maintenance",
+    "Assets",
+    "Contracts",
+    "Workforce and inventory"
+  ],
+  "linkLabel": "Explore CAFM | CMMS",
+  "linkHref": "https://disrupt-x.io/alef-360-cafm-cmms/",
+  "view": "workorders",
+  "image": {
+    "src": "/assets/app-workorders.webp",
+    "width": 1440,
+    "height": 900,
+    "alt": "ALEF 360° CAFM | CMMS work orders list"
+  }
+}

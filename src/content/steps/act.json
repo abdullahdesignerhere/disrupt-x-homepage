@@ -1,0 +1,10 @@
+{
+  "order": 3,
+  "title": "Act",
+  "text": "Alerts become work orders, permits and reports automatically, on web and mobile.",
+  "chips": [
+    "Cloud",
+    "Hybrid",
+    "On-premises"
+  ]
+}

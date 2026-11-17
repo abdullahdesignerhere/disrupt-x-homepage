@@ -1,0 +1,18 @@
+{
+  "order": 1,
+  "team": "Facility and maintenance teams",
+  "headline": "Faster jobs. Fewer breakdowns.",
+  "text": "The technician gets the job on a phone, with the asset, the checklist and the history attached.",
+  "bullets": [
+    "Work orders on mobile",
+    "Planned maintenance on schedule",
+    "Parts, contracts and workforce in one place"
+  ],
+  "module": "cafm-cmms",
+  "image": {
+    "src": "/assets/cafm-work-order-wo8795-card.webp",
+    "width": 1350,
+    "height": 965,
+    "alt": "Technician with a tablet next to an ALEF 360° work order for replacing a fire door closer"
+  }
+}

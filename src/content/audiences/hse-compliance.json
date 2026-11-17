@@ -1,0 +1,18 @@
+{
+  "order": 2,
+  "team": "HSE and compliance teams",
+  "headline": "Safer sites. Records ready for audit.",
+  "text": "An incident is logged on site, becomes a corrective action with an owner, and stays open until it is closed.",
+  "bullets": [
+    "Incidents and inspections",
+    "Permits to work",
+    "Corrective actions with owners and deadlines"
+  ],
+  "module": "hseq",
+  "image": {
+    "src": "/assets/hseq-incident-injury-dashboard.webp",
+    "width": 1350,
+    "height": 965,
+    "alt": "ALEF 360° incident and injury dashboard showing open incidents and overdue actions"
+  }
+}

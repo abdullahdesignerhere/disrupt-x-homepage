@@ -1,0 +1,21 @@
+{
+  "order": 4,
+  "tag": "Connected Operations",
+  "tabLabel": "Connected Operations",
+  "headline": "Sensors and meters that report in.",
+  "description": "Physical devices that feed live data into the platform.",
+  "bullets": [
+    "Sensors and meters",
+    "Environment",
+    "Assets and utilities"
+  ],
+  "linkLabel": "Explore Connected Operations",
+  "linkHref": "https://disrupt-x.io/alef-360-iot-platform/",
+  "view": "iot",
+  "image": {
+    "src": "/assets/app-iot.webp",
+    "width": 1440,
+    "height": 900,
+    "alt": "ALEF 360° IoT alarms list"
+  }
+}

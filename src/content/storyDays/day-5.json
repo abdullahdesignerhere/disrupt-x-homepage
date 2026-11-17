@@ -1,0 +1,10 @@
+{
+  "order": 2,
+  "day": "5",
+  "without": "Still running. Still unseen.",
+  "withoutIsBad": false,
+  "with": "A work order lands on the technician's phone.",
+  "view": "asset",
+  "target": "raise-wo",
+  "note": "A work order is raised and sent to the technician's phone."
+}

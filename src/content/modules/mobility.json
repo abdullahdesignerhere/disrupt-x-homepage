@@ -1,0 +1,19 @@
+{
+  "order": 5,
+  "tag": "Mobility",
+  "tabLabel": "Mobility",
+  "headline": "Vehicles, equipment and people, located.",
+  "description": "Know where every vehicle, tool and team is, live.",
+  "bullets": [
+    "Vehicle fleet tracking",
+    "Asset tracking"
+  ],
+  "linkLabel": "Explore Mobility",
+  "linkHref": "https://disrupt-x.io/alef-360-mobility/",
+  "image": {
+    "src": "/assets/screen-mobility.webp",
+    "width": 1034,
+    "height": 626,
+    "alt": "ALEF 360° Mobility fleet map with vehicle status filters"
+  }
+}

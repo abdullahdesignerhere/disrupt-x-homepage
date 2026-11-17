@@ -1,0 +1,140 @@
+{
+  "title": "Disrupt-X | ALEF 360°: buildings, assets and safety on one platform",
+  "description": "ALEF 360° by Disrupt-X puts maintenance, health and safety and building monitoring on one platform, so teams see problems before they fail.",
+  "themeColor": "#0B0D12",
+  "ogImage": "/assets/og-image.png",
+  "ogImageAlt": "ALEF 360° work order screen",
+  "brand": {
+    "name": "Disrupt-X",
+    "homeLabel": "Disrupt-X home",
+    "url": "https://disrupt-x.io/"
+  },
+  "nav": [
+    {
+      "label": "Who it's for",
+      "href": "#who"
+    },
+    {
+      "label": "Platform",
+      "href": "#platform"
+    },
+    {
+      "label": "How it works",
+      "href": "#how"
+    },
+    {
+      "label": "FAQ",
+      "href": "#faq"
+    }
+  ],
+  "navLabel": "Main",
+  "menuOpenLabel": "Open menu",
+  "menuCloseLabel": "Close menu",
+  "skipToContent": "Skip to content",
+  "cta": {
+    "label": "Book a demo",
+    "href": "#demo"
+  },
+  "hero": {
+    "eyebrow": "ALEF 360° · Buildings, assets and safety",
+    "titleStart": "Find out ",
+    "titleMark": "before it fails.",
+    "titleEnd": " Not after someone complains.",
+    "lead": "CAFM, HSEQ and building monitoring software for facility teams, in one platform.",
+    "proof": "50+ enterprise customers · 20+ countries"
+  },
+  "story": {
+    "eyebrow": "Six days, two endings",
+    "without": "Without",
+    "with": "With ALEF 360°",
+    "dayWord": "Day",
+    "skipLabel": "Skip the story",
+    "skipHref": "#trust",
+    "ctaNote": "See this on your own sites.",
+    "ctaLabel": "Book a demo",
+    "frameLabel": "ALEF 360° CAFM | CMMS",
+    "frameAlt": "ALEF 360° CAFM | CMMS asset page for AHU 1 at Indigo Tower, with tabs, Raise WO and Download Report buttons",
+    "caption": "ALEF 360° screens, recreated in HTML from images on disrupt-x.io. Highlights added to tell the story.",
+    "cardLabel": "Story"
+  },
+  "trust": {
+    "caption": "Facility and safety teams that use Disrupt-X",
+    "label": "Customers and recognition"
+  },
+  "statement": {
+    "eyebrow": "Why visibility matters",
+    "before": "Most breakdowns send warning signs ",
+    "em": "days in advance.",
+    "after": " Without live visibility, those signs sit in paper, WhatsApp and Excel until the phones start ringing."
+  },
+  "who": {
+    "eyebrow": "Who it's for",
+    "heading": "Three teams. One place to work.",
+    "caption": "Images from disrupt-x.io."
+  },
+  "platform": {
+    "eyebrow": "The platform",
+    "heading": "One platform. Start where it hurts.",
+    "sub": "Five parts. Take one, add the rest when you're ready.",
+    "tabsLabel": "Platform modules"
+  },
+  "band": {
+    "text": "Not sure where to start? We'll map it with you in 30 minutes.",
+    "label": "Book a demo"
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "heading": "Start with what you already have.",
+    "intro": "ALEF 360° is hardware and protocol agnostic. We connect what's on site, then add sensors only where you're blind."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "heading": "Questions buyers ask us."
+  },
+  "demo": {
+    "eyebrow": "Book a demo",
+    "headingStart": "See your own sites through ",
+    "headingMark": "ALEF 360°.",
+    "points": [
+      "See it on a building like yours",
+      "Bring your own questions",
+      "No obligation"
+    ],
+    "submit": "Book a demo",
+    "fields": {
+      "name": "Full name",
+      "email": "Work email",
+      "company": "Company",
+      "role": "Your role"
+    },
+    "errors": {
+      "name": "Enter your full name.",
+      "email": "Enter a work email, like name@company.com.",
+      "company": "Enter your company.",
+      "role": "Enter your role."
+    },
+    "summary": "Please fix the highlighted fields.",
+    "success": "Thanks. This is a concept page, so the form is not connected yet."
+  },
+  "footer": {
+    "links": [
+      {
+        "label": "Press releases",
+        "href": "https://disrupt-x.io/press-releases/"
+      },
+      {
+        "label": "Podcasts",
+        "href": "https://disrupt-x.io/podcast/"
+      },
+      {
+        "label": "Become a partner",
+        "href": "https://disrupt-x.io/contact-us/"
+      },
+      {
+        "label": "disrupt-x.io",
+        "href": "https://disrupt-x.io/"
+      }
+    ],
+    "note": "Concept homepage for Disrupt-X by Abdullah Omer. Product screens recreated in HTML from images on disrupt-x.io."
+  }
+}

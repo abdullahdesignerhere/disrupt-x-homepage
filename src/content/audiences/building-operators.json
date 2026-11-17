@@ -1,0 +1,18 @@
+{
+  "order": 3,
+  "team": "Building operators and owners",
+  "headline": "Lower cost. Every site on one screen.",
+  "text": "Energy, alarms and open work across all your buildings, on one dashboard.",
+  "bullets": [
+    "Live building monitoring",
+    "AI fault detection",
+    "Energy tracking across many sites"
+  ],
+  "module": "ibms",
+  "image": {
+    "src": "/assets/ibms-total-consumption-map.webp",
+    "width": 900,
+    "height": 596,
+    "alt": "ALEF 360° dashboard with total energy and water consumption and a map of sites"
+  }
+}

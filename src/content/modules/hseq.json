@@ -1,0 +1,22 @@
+{
+  "order": 1,
+  "tag": "HSEQ",
+  "tabLabel": "HSEQ",
+  "headline": "Safety paperwork, made digital.",
+  "description": "Incidents, inspections, permits for risky work and follow-up actions in one place.",
+  "bullets": [
+    "Incidents",
+    "Inspections",
+    "Permits to work",
+    "Corrective actions"
+  ],
+  "linkLabel": "Explore HSEQ",
+  "linkHref": "https://disrupt-x.io/alef-360-hseq/",
+  "view": "incidents",
+  "image": {
+    "src": "/assets/app-incidents.webp",
+    "width": 1440,
+    "height": 900,
+    "alt": "ALEF 360° HSEQ incidents list"
+  }
+}

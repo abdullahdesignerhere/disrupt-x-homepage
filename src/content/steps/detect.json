@@ -1,0 +1,9 @@
+{
+  "order": 2,
+  "title": "Detect",
+  "text": "AI learns each asset's normal behaviour and flags drift, faults and energy waste with a priority.",
+  "chips": [
+    "Anomaly detection",
+    "Forecasting"
+  ]
+}

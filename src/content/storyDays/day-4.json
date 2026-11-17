@@ -1,0 +1,10 @@
+{
+  "order": 3,
+  "day": "4",
+  "without": "Nothing in the paper log, WhatsApp or Excel.",
+  "withoutIsBad": false,
+  "with": "Fixed in a planned two-hour window.",
+  "view": "workorders",
+  "target": "first-row",
+  "note": "Fixed in a planned two-hour window."
+}

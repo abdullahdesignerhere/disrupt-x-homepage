@@ -1,0 +1,11 @@
+{
+  "order": 1,
+  "title": "Connect",
+  "text": "Plug in your BMS, meters and existing sensors, and fill the gaps with Ignite IoT devices.",
+  "chips": [
+    "LoRaWAN",
+    "BACnet",
+    "Modbus",
+    "Open API"
+  ]
+}

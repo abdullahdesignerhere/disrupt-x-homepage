@@ -1,0 +1,10 @@
+{
+  "order": 4,
+  "day": "0",
+  "without": "The unit fails. The client calls you.",
+  "withoutIsBad": true,
+  "with": "A normal day. The job is already in the client report.",
+  "view": "asset",
+  "target": "download-report",
+  "note": "A normal day. The job is already in the client report."
+}
