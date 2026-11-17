@@ -44,6 +44,19 @@ const ogUrl = new URL(ogImage, Astro.site).href; // ogImage already includes the
     <link rel="icon" href="data:," />
     <link rel="preload" as="font" type="font/woff2" href={poppins600} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={roboto400} crossorigin />
+    <noscript>
+      <style is:inline>
+        @media (max-width: 920px) {
+          :root { --header-h: 118px; }
+          .nav { height: auto !important; flex-wrap: wrap; padding: 6px 0 4px; row-gap: 0; }
+          .nav .right { margin-left: auto; }
+          .nav .links { display: block !important; order: 3; flex-basis: 100%; position: static !important; padding: 0 !important; border: 0 !important; background: none !important; }
+          .nav .links ul { flex-direction: row !important; flex-wrap: wrap; gap: 0 18px !important; font-size: 15px !important; }
+          .nav .links li + li { border: 0 !important; }
+          .nav .links a { padding: 10px 0 !important; min-height: 44px; }
+        }
+      </style>
+    </noscript>
     {jsonLd.map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
   <body>

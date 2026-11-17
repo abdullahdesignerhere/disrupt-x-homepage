@@ -1,12 +1,14 @@
 ---
-// Hero and story in one pinned stage: the hero text lifts away, the product frame rises and flattens,
-// then four days play out. Without JS (or with reduced motion) it is a normal readable block.
+// Hero and story. From 761px up (and tall enough): one pinned stage, the hero text lifts away, the product frame
+// rises and flattens, then four days play out. On phones (and short screens) nothing is pinned: the hero is followed by a
+// static peek of the product and a stacked timeline of four cards with pre-rendered close-ups (public/assets/story).
+// Without JS (or with reduced motion) the wide layout is a normal readable block.
 import Eyebrow from './Eyebrow.astro';
 import Button from './Button.astro';
 import DayBar from './DayBar.astro';
 import BrowserFrame from './BrowserFrame.astro';
 import { asset } from '../lib/url';
-interface Day { day: string; without: string; withoutIsBad: boolean; with: string; target: string; note: string; view: string }
+interface Day { day: string; without: string; withoutIsBad: boolean; with: string; target: string; note: string; view: string; closeupAlt: string }
 interface Props {
   hero: { eyebrow: string; titleStart: string; titleMark: string; titleEnd: string; lead: string; proof: string };
   story: any;
@@ -24,9 +26,13 @@ const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, 
     <Button href={cta.href} size="lg" class="hero-btn">{cta.label}</Button>
     <p class="hero-proof">{hero.proof}</p>
   </div>
+  <a class="story-skip" href={story.skipHref}>{story.skipLabel}</a>
+  <figure class="peek">
+    <img src={image.src} width={image.width} height={image.height} alt={image.alt} decoding="async" />
+  </figure>
   <div class="sstage" data-sstage>
     <DayBar days={days} story={story} ctaHref={cta.href} />
-    <BrowserFrame image={image} view="asset" chrome={story.frameLabel} caption={story.caption} closeup>
+    <BrowserFrame image={image} view="asset" chrome={story.frameLabel} caption={story.caption}>
       <div slot="overlay" class="callouts" aria-hidden="true" data-callouts>
         {days.map((d) => (
           <div class="co" data-target={d.target} data-view={d.view}>
@@ -37,6 +43,31 @@ const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, 
         ))}
       </div>
     </BrowserFrame>
+  </div>
+</section>
+<section class="sstack" aria-labelledby="stack-h">
+  <div class="sk">
+    <Eyebrow as="h2" id="stack-h">{story.eyebrow}</Eyebrow>
+    <ol class="sk-list">
+      {days.map((d, i) => (
+        <li class="sk-card" data-reveal>
+          <span class="sk-dot" aria-hidden="true"></span>
+          <div class="sk-lab"><span>{story.dayWord} </span>{d.day}</div>
+          <p class:list={['sk-line', 'wo', { bad: d.withoutIsBad }]}><b class="tg">{story.without}</b><span>{d.without}</span></p>
+          <p class="sk-line wi"><b class="tg">{story.with}</b><span>{d.with}</span></p>
+          <img
+            class="sk-img" src={asset(`/assets/story/day${d.day}.webp`)} width="760" height="500" alt={d.closeupAlt}
+            loading={i === 0 ? 'eager' : 'lazy'} decoding="async"
+          />
+          <p class="sk-note">{d.note}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="sk-cta">
+      <p>{story.ctaNote}</p>
+      <Button href={cta.href} size="lg">{story.ctaLabel}</Button>
+    </div>
+    <p class="sk-cap">{story.caption}</p>
   </div>
 </section>
 <style>
@@ -104,6 +135,61 @@ const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, 
   }
   :global(.js) .sstage > :global(.frame) { flex: none; }
 
+  /* Stacked story: phones and short screens. The pinned stage is not rendered at all. */
+  .sstack, .peek { display: none; }
+  .story-skip { display: none; }
+  :global(.js) .story-skip {
+    display: block; position: fixed; left: 12px; top: calc(var(--header-h) + 10px); z-index: 60;
+    transform: translateY(-300%); background: var(--btn-bg); color: var(--btn-tx);
+    font: 600 15px var(--font-display); padding: 12px 18px; border-radius: var(--r-pill); text-decoration: none;
+  }
+  :global(.js) .story-skip:focus { transform: none; }
+  .sk { max-width: 560px; margin: 0 auto; padding: 8px 16px 56px; text-align: left; }
+  .sk-list { list-style: none; margin: 26px 0 0; padding: 0 0 0 22px; position: relative; display: grid; gap: 34px; }
+  .sk-list::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: var(--line-2); border-radius: 2px; }
+  .sk-card { position: relative; display: grid; gap: 10px; }
+  .sk-dot {
+    position: absolute; left: -22px; top: 10px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--mint); box-shadow: 0 0 0 4px var(--paper), 0 0 14px rgba(0, 255, 206, 0.5);
+  }
+  .sk-lab {
+    font-family: var(--font-display); font-weight: 600; font-size: 32px; line-height: 1.1; letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums; color: var(--ink);
+  }
+  .sk-lab span { color: var(--muted); font-weight: 500; }
+  .sk-line { display: flex; gap: 10px; align-items: baseline; margin: 0; font-size: 15.5px; line-height: 1.4; }
+  .sk-line.wo { color: var(--muted); }
+  .sk-line.wo.bad { color: var(--red-tx); }
+  .sk-line.wi { color: var(--ink); font-size: 16.5px; }
+  .tg {
+    flex: none; font-family: var(--font-display); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 600; border-radius: var(--r-pill); padding: 3px 10px; white-space: nowrap; position: relative; top: -1px;
+  }
+  .wo .tg { background: rgba(157, 164, 176, 0.16); color: var(--muted); }
+  .wo.bad .tg { background: rgba(229, 72, 77, 0.16); color: var(--red-tx); }
+  .wi .tg { background: var(--mint); color: #06110f; }
+  .sk-img {
+    display: block; width: 100%; height: auto; margin-top: 6px; border-radius: 12px; border: 1px solid var(--line-2);
+    background: #fff; box-shadow: var(--glow);
+  }
+  .sk-note { margin: 0; font-family: var(--font-display); font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
+  .sk-cta { margin-top: 40px; display: grid; gap: 14px; justify-items: start; font-family: var(--font-display); color: var(--ink-2); }
+  .sk-cta p { margin: 0; font-size: 16px; }
+  .sk-cap { margin: 26px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+  @media (max-width: 760px), (max-height: 520px) {
+    .sstage, .story-skip { display: none !important; }
+    .sstack { display: block; background: var(--paper); }
+    .hero { height: auto !important; min-height: 0 !important; overflow: visible; }
+    .hero-in { position: relative !important; top: auto !important; padding: 124px var(--gutter) 28px !important; }
+    h1 { font-size: clamp(32px, 9vw, 42px); margin: 18px auto 20px; }
+    .what { font-size: 17px; }
+    .hero-in :global(.hero-btn), .hero-in > :global(a) { margin-top: 26px; }
+    .hero-proof { margin-top: 20px; }
+    .peek { display: block; margin: 0 auto; padding: 0 16px 36px; max-width: 560px; position: relative; z-index: 1; }
+    .peek img {
+      display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line-2); background: #fff; box-shadow: var(--glow);
+    }
+  }
   @media (max-width: 900px) {
     .hero-in { padding-top: 150px; }
     :global(.js) .hero-in { top: calc(var(--header-h) + 3vh); }

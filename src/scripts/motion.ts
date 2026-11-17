@@ -29,6 +29,9 @@ export function stableHeight() {
   return Math.max(window.innerHeight, sh || 0);
 }
 
-// The pinned stages need room. Below these heights (short landscape phones, 320x568) the plain stacked layout is used.
-export const canPinStory = () => stableHeight() >= (isPhone() ? 600 : 560);
+// The pinned story is used from 761px up and at least 521px tall. Everything else gets the stacked story.
+// Keep this query in step with the one in src/components/StoryStage.astro.
+export const STACK_MQ = `(max-width: ${BP_PHONE}px), (max-height: 520px)`;
+export const canPinStory = () => !window.matchMedia(STACK_MQ).matches;
+// The pinned platform needs room: below this height the plain tabs are used.
 export const canPinModules = () => window.innerWidth > BP_PHONE && stableHeight() >= 560;

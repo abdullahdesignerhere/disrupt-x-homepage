@@ -1,7 +1,7 @@
 // Hero and story: one pinned stage. The hero text lifts away while the product frame rises and flattens,
 // then four days play out. Visuals change by day (not scrubbed); the scroll only decides which day is on.
-// On phones the screen becomes a close-up window that pans and zooms to the ringed element of each day.
-import { gsap, ScrollTrigger, root, isNarrow, isPhone, coarse } from './motion';
+// Phones and short screens do not use this file at all: they get the stacked story (see StoryStage.astro).
+import { gsap, ScrollTrigger, root, isNarrow, coarse } from './motion';
 import { mountAlef } from './alef';
 
 // Which element of the recreated screen gets the ring. Names match `target` in the storyDays collection.
@@ -18,11 +18,6 @@ const DAY_PX = 600;
 // Timeline units: lift = 2, each day = 2.
 const LIFT = 2;
 const PER_DAY = 2;
-const MIN_TEXT_PX = 11; // smallest effective text size in the phone close-up
-const MAX_ZOOM = 4.2;
-// A table row is wider than a phone. Frame its first three cells (ID, status, description) and accept a slightly smaller zoom.
-const ROW_CELLS = 3;
-const ROW_MIN_ZOOM = 2.9;
 
 export function initStory(): (() => void) | null {
   const section = document.querySelector<HTMLElement>('[data-story]');
@@ -50,15 +45,8 @@ export function initStory(): (() => void) | null {
     const innerH = sstage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
     const innerW = sstage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const barH = daybar.offsetHeight + 10;
-    if (isPhone()) {
-      // window height = what is left under the day bar, minus the browser bar, the story note and the caption
-      const h = innerH - barH - 36 - 86 - 30 - 6;
-      frame.style.setProperty('--closeup-h', `${Math.round(Math.max(170, Math.min(h, 440)))}px`);
-      sstage.style.setProperty('--bw', `${innerW}px`);
-    } else {
-      const avail = innerH - barH - (isNarrow() ? 92 : 34 + 56) - 8;
-      sstage.style.setProperty('--bw', `${Math.min(innerW, Math.max(260, ((avail - 36) * 1440) / 900))}px`);
-    }
+    const avail = innerH - barH - (isNarrow() ? 92 : 34 + 56) - 8;
+    sstage.style.setProperty('--bw', `${Math.min(innerW, Math.max(260, ((avail - 36) * 1440) / 900))}px`);
   }
   fit();
   // Fit only when the layout width changes, or on a pointer:fine device (a desktop window resize).
@@ -79,71 +67,11 @@ export function initStory(): (() => void) | null {
   let token = 0;
   mountAlef(host, 'asset').then((a) => {
     app = a;
-    pan(coNow, false);
     replace();
   });
 
   const targetEl = (k: number) => host.querySelector<HTMLElement>(TARGETS[cos[k].dataset.target ?? ''] ?? '');
   const flat = () => Math.abs(Number(gsap.getProperty(frame, 'rotationX'))) < 0.5;
-
-  // position of an element inside the 1440x900 canvas, from layout offsets (unaffected by any transform)
-  function canvasRect(el: HTMLElement) {
-    const scale = host.querySelector<HTMLElement>('.alef-scale')!;
-    let x = 0;
-    let y = 0;
-    let n: HTMLElement | null = el;
-    while (n && n !== scale) {
-      x += n.offsetLeft;
-      y += n.offsetTop;
-      n = n.offsetParent as HTMLElement | null;
-    }
-    return { l: x, t: y, w: el.offsetWidth, h: el.offsetHeight };
-  }
-
-  // Phone close-up: pan and zoom the canvas so the ringed element fills the window. Transform only.
-  function pan(k: number, animate: boolean) {
-    if (!isPhone()) {
-      gsap.set(host, { clearProps: 'transform' });
-      return;
-    }
-    if (!app) return;
-    const vw = imgs.clientWidth;
-    const vh = imgs.clientHeight;
-    const W = host.offsetWidth;
-    const base = W / 1440;
-    const H = 900 * base;
-    let z: number;
-    let tx = 0;
-    let ty = 0;
-    const el = k >= 0 ? targetEl(k) : null;
-    if (!el) {
-      // overview: the top left of the screen, filling the window
-      z = Math.max(1, vh / H);
-    } else {
-      const r = canvasRect(el);
-      const fs = parseFloat(getComputedStyle(el).fontSize) || 12;
-      const pad = 14;
-      let zMin = MIN_TEXT_PX / (fs * base);
-      if (el.tagName === 'TR') {
-        const last = el.children[Math.min(ROW_CELLS, el.children.length) - 1] as HTMLElement;
-        r.w = last.offsetLeft + last.offsetWidth - (el as HTMLElement).offsetLeft;
-        zMin = ROW_MIN_ZOOM;
-      }
-      const zFit = Math.min((vw - 2 * pad) / (r.w * base), (vh - 2 * pad) / (r.h * base));
-      z = Math.max(zMin, Math.min(zFit, MAX_ZOOM));
-      const tooWide = r.w * base * z > vw - 2 * pad;
-      tx = tooWide ? pad - r.l * base * z : vw / 2 - (r.l + r.w / 2) * base * z;
-      ty = vh / 2 - (r.t + r.h / 2) * base * z;
-      tx = Math.min(0, Math.max(vw - W * z, tx));
-      ty = Math.min(0, Math.max(vh - H * z, ty));
-    }
-    const to = { x: tx, y: ty, scale: z };
-    if (animate) gsap.to(host, { ...to, duration: 0.9, ease: 'power3.inOut', overwrite: true });
-    else {
-      gsap.killTweensOf(host); // a pan still running from an earlier day must not overwrite this one
-      gsap.set(host, to);
-    }
-  }
 
   // ring and callout card, computed from the real element so they follow any layout
   function place(k: number) {
@@ -157,19 +85,10 @@ export function initStory(): (() => void) | null {
     const card = co.querySelector<HTMLElement>('.ccard')!;
     const ln = co.querySelector<SVGLineElement>('line')!;
     const pad = Math.max(3, s.width * 0.004);
-    let L = r.left - s.left - pad;
-    let Tt = r.top - s.top - pad;
-    let Wd = r.width + 2 * pad;
-    let Ht = r.height + 2 * pad;
-    if (isPhone()) {
-      // keep the ring inside the window
-      const l2 = Math.max(L, 2);
-      const t2 = Math.max(Tt, 2);
-      Wd = Math.min(L + Wd, s.width - 2) - l2;
-      Ht = Math.min(Tt + Ht, s.height - 2) - t2;
-      L = l2;
-      Tt = t2;
-    }
+    const L = r.left - s.left - pad;
+    const Tt = r.top - s.top - pad;
+    const Wd = r.width + 2 * pad;
+    const Ht = r.height + 2 * pad;
     Object.assign(ring.style, { left: `${L}px`, top: `${Tt}px`, width: `${Wd}px`, height: `${Ht}px` });
     if (isNarrow()) {
       ['x1', 'x2', 'y1', 'y2'].forEach((a) => ln.setAttribute(a, '0'));
@@ -205,23 +124,17 @@ export function initStory(): (() => void) | null {
     const my = ++token;
     cos.forEach((el) => el.classList.remove('on'));
     if (!app) return;
-    if (k < 0) {
-      pan(-1, true);
-      return;
-    }
+    if (k < 0) return;
     const need = cos[k].dataset.view ?? 'asset';
-    const settle = isPhone() ? 980 : 260;
     if (app.getView() === need) {
       host.classList.remove('sw');
-      pan(k, true);
-      setTimeout(() => my === token && showCo(k), settle);
+      setTimeout(() => my === token && showCo(k), 260);
       return;
     }
     host.classList.add('sw');
     setTimeout(() => {
       if (my !== token || !app) return;
       app.setView(need);
-      pan(k, false);
       host.classList.remove('sw');
       setTimeout(() => my === token && showCo(k), 420);
     }, 320);
@@ -239,10 +152,7 @@ export function initStory(): (() => void) | null {
     goCallout(k);
   }
   function replace() {
-    if (coNow >= 0 && cos[coNow].classList.contains('on')) {
-      pan(coNow, false);
-      place(coNow);
-    } else if (coNow < 0) pan(-1, false);
+    if (coNow >= 0 && cos[coNow].classList.contains('on')) place(coNow);
   }
   const onResizeReplace = () => requestAnimationFrame(replace);
   window.addEventListener('resize', onResizeReplace);
@@ -305,7 +215,6 @@ export function initStory(): (() => void) | null {
     gsap.killTweensOf(host);
     gsap.set([sstage, frame, heroIn, daybar, caption, host, ...sts.map((e) => e.firstElementChild as HTMLElement)], { clearProps: 'all' });
     sstage.style.removeProperty('--bw');
-    frame.style.removeProperty('--closeup-h');
     daybar.classList.remove('cta-on');
     root.classList.remove('js');
   };

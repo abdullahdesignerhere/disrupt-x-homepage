@@ -7,11 +7,10 @@ interface Props {
   chrome?: string;
   caption?: string;
   lazy?: boolean;
-  closeup?: boolean;
 }
-const { image, view, chrome, caption, lazy = false, closeup = false } = Astro.props;
+const { image, view, chrome, caption, lazy = false } = Astro.props;
 ---
-<figure class:list={['frame', { closeup, 'has-chrome': !!chrome }]} data-frame>
+<figure class:list={['frame', { 'has-chrome': !!chrome }]} data-frame>
   {chrome && (
     <div class="chrome" aria-hidden="true">
       <span class="dots"><i></i><i></i><i></i></span>
@@ -55,11 +54,4 @@ const { image, view, chrome, caption, lazy = false, closeup = false } = Astro.pr
   .alefhost.sw { opacity: 0; }
   .fb { display: block; width: 100%; height: auto; }
   figcaption { margin-top: 12px; font-size: 12.5px; color: var(--muted); text-align: center; }
-
-  /* Phones, story only: the screen becomes a window that pans and zooms (story.ts sets --closeup-h and the transform). */
-  @media (max-width: 760px) {
-    :global(.js) .closeup .imgs { aspect-ratio: auto; height: var(--closeup-h, 300px); }
-    :global(.js) .closeup .alefhost { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
-    :global(.js) .closeup figcaption { font-size: 11.5px; }
-  }
 </style>

@@ -1,6 +1,6 @@
 // Platform modules. At 761px and up the section is pinned: scrolling steps through the tabs, panels cross-fade,
 // one pill glides between the tabs and a thin bar shows progress. Below that, and with reduced motion, it is plain tabs.
-import { gsap, ScrollTrigger, root, BP_PHONE, BP_STACK, prefersReducedMotion, coarse, canPinModules } from './motion';
+import { gsap, ScrollTrigger, root, BP_PHONE, BP_STACK, prefersReducedMotion, coarse, canPinModules, isPhone } from './motion';
 import { mountAlef } from './alef';
 
 const STEP_PX = 480; // scroll distance per tab
@@ -81,13 +81,18 @@ export function initModules() {
 
   // ---- live screens: mounted when the section nears the viewport; the .webp stays as placeholder ----
   const hosts = [...plat.querySelectorAll<HTMLElement>('[data-alef-host][data-alef-view]')];
-  const mountAll = () =>
+  // Phones keep the static .webp (no live screen, no extra JS or CPU); wider screens mount it.
+  let near = false;
+  const mountAll = () => {
+    near = true;
+    if (isPhone()) return;
     hosts.forEach((h) => {
       if (!h.dataset.mounted) {
         h.dataset.mounted = '1';
         mountAlef(h, h.dataset.alefView!);
       }
     });
+  };
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => {
       if (es[0].isIntersecting) {
@@ -209,6 +214,7 @@ export function initModules() {
     // Touch screens fire resize for every address-bar change; only a width change (rotation, split screen) matters.
     if (window.innerWidth === lastW && coarse()) return;
     lastW = window.innerWidth;
+    if (near) mountAll(); // crossing 760px upwards (rotation): mount the live screens now
     clearTimeout(timer);
     timer = window.setTimeout(() => {
       const m = wantPin() ? 'pin' : 'tabbed';

@@ -120,6 +120,7 @@ const storyDays = defineCollection({
     // Which element of the screen gets the ring. The selectors live in src/scripts/story.ts.
     target: z.enum(['alarms-tab', 'raise-wo', 'first-row', 'download-report']),
     note: z.string(),
+    closeupAlt: z.string(), // alt text of the phone close-up image (public/assets/story/day<N>.webp)
   }),
 });
 
