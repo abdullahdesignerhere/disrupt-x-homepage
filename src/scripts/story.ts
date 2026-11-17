@@ -20,6 +20,9 @@ const LIFT = 2;
 const PER_DAY = 2;
 const MIN_TEXT_PX = 11; // smallest effective text size in the phone close-up
 const MAX_ZOOM = 4.2;
+// A table row is wider than a phone. Frame its first three cells (ID, status, description) and accept a slightly smaller zoom.
+const ROW_CELLS = 3;
+const ROW_MIN_ZOOM = 2.9;
 
 export function initStory() {
   const section = document.querySelector<HTMLElement>('[data-story]');
@@ -112,7 +115,12 @@ export function initStory() {
       const r = canvasRect(el);
       const fs = parseFloat(getComputedStyle(el).fontSize) || 12;
       const pad = 14;
-      const zMin = MIN_TEXT_PX / (fs * base);
+      let zMin = MIN_TEXT_PX / (fs * base);
+      if (el.tagName === 'TR') {
+        const last = el.children[Math.min(ROW_CELLS, el.children.length) - 1] as HTMLElement;
+        r.w = last.offsetLeft + last.offsetWidth - (el as HTMLElement).offsetLeft;
+        zMin = ROW_MIN_ZOOM;
+      }
       const zFit = Math.min((vw - 2 * pad) / (r.w * base), (vh - 2 * pad) / (r.h * base));
       z = Math.max(zMin, Math.min(zFit, MAX_ZOOM));
       const tooWide = r.w * base * z > vw - 2 * pad;
