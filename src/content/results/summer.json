@@ -1,0 +1,21 @@
+{
+  "order": 1,
+  "eyebrow": "Customer story · Mixed-use tower, Dubai",
+  "headline": "From firefighting to planned work in one summer.",
+  "figures": [
+    {
+      "value": "-41%",
+      "label": "unplanned chiller downtime"
+    },
+    {
+      "value": "3.2×",
+      "label": "more work orders closed within SLA"
+    },
+    {
+      "value": "18%",
+      "label": "lower cooling energy use"
+    }
+  ],
+  "story": "We used to hear about a failed chiller from our tenants. Now we hear about it from ALEF, a week early.",
+  "attribution": "Head of Facilities, mixed-use operator · 42 floors, 380 connected assets"
+}

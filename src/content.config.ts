@@ -55,6 +55,8 @@ const site = defineCollection({
     trust: z.object({ caption: z.string(), label: z.string() }),
     statement: z.object({ eyebrow: z.string(), before: z.string(), em: z.string(), after: z.string() }),
     who: z.object({ eyebrow: z.string(), heading: z.string(), caption: z.string() }),
+    sampleLabel: z.string(),
+    answers: z.object({ eyebrow: z.string(), heading: z.string() }),
     platform: z.object({ eyebrow: z.string(), heading: z.string(), sub: z.string(), tabsLabel: z.string() }),
     band: z.object({ text: z.string(), label: z.string() }),
     how: z.object({ eyebrow: z.string(), heading: z.string(), intro: z.string() }),
@@ -160,4 +162,23 @@ const steps = defineCollection({
   }),
 });
 
-export const collections = { site, modules, audiences, storyDays, faqs, logos, awards, steps };
+// Customer story band. Sample data: shown with a visible "Sample data" chip.
+const results = defineCollection({
+  loader: json('results'),
+  schema: z.object({
+    order: z.number(),
+    eyebrow: z.string(),
+    headline: z.string(),
+    figures: z.array(z.object({ value: z.string(), label: z.string() })).min(1).max(4),
+    story: z.string(),
+    attribution: z.string(),
+  }),
+});
+
+// "Answers before you ask" cards. Sample data. Do not repeat a question that is already in `faqs`.
+const answers = defineCollection({
+  loader: json('answers'),
+  schema: z.object({ order: z.number(), question: z.string(), answer: z.string() }),
+});
+
+export const collections = { results, answers, site, modules, audiences, storyDays, faqs, logos, awards, steps };

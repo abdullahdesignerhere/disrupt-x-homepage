@@ -79,13 +79,13 @@
     "tabsLabel": "Platform modules"
   },
   "band": {
-    "text": "Not sure where to start? We'll map it with you in 30 minutes.",
+    "text": "Not sure where to start? We'll map it with you.",
     "label": "Book a demo"
   },
   "how": {
     "eyebrow": "How it works",
     "heading": "Start with what you already have.",
-    "intro": "ALEF 360° is hardware and protocol agnostic. We connect what's on site, then add sensors only where you're blind."
+    "intro": "ALEF 360° is communication and hardware agnostic. We connect what's on site, then add sensors only where you're blind."
   },
   "faq": {
     "eyebrow": "FAQ",
@@ -135,6 +135,11 @@
         "href": "https://disrupt-x.io/"
       }
     ],
-    "note": "Concept homepage for Disrupt-X by Abdullah Omer. Product screens recreated in HTML from images on disrupt-x.io."
+    "note": "Concept homepage for Disrupt-X by Abdullah Omer. Product screens recreated in HTML from images on disrupt-x.io. Customer story and figures marked \"Sample data\" are placeholders."
+  },
+  "sampleLabel": "Sample data",
+  "answers": {
+    "eyebrow": "Straight answers",
+    "heading": "Answers before you ask."
   }
 }

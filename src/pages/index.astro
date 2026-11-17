@@ -9,25 +9,31 @@ import Audiences from '../components/Audiences.astro';
 import Modules from '../components/Modules.astro';
 import CtaBand from '../components/CtaBand.astro';
 import HowItWorks from '../components/HowItWorks.astro';
+import Results from '../components/Results.astro';
+import Answers from '../components/Answers.astro';
 import Faq from '../components/Faq.astro';
 import DemoForm from '../components/DemoForm.astro';
+import { asset } from '../lib/url';
 import Footer from '../components/Footer.astro';
 
 const site = (await getEntry('site', 'site'))!.data;
 const byOrder = <T extends { data: { order: number } }>(list: T[]) => [...list].sort((a, b) => a.data.order - b.data.order);
 
 const days = byOrder(await getCollection('storyDays')).map((e) => e.data);
-const logos = byOrder(await getCollection('logos')).map((e) => e.data);
-const awards = byOrder(await getCollection('awards')).map((e) => e.data);
+const withSrc = <T extends { src: string }>(x: T): T => ({ ...x, src: asset(x.src) });
+const logos = byOrder(await getCollection('logos')).map((e) => withSrc(e.data));
+const awards = byOrder(await getCollection('awards')).map((e) => withSrc(e.data));
 const steps = byOrder(await getCollection('steps')).map((e) => e.data);
+const results = byOrder(await getCollection('results')).map((e) => e.data);
+const answers = byOrder(await getCollection('answers')).map((e) => e.data);
 const faqs = byOrder(await getCollection('faqs')).map((e) => e.data);
 const moduleEntries = byOrder(await getCollection('modules'));
-const modules = moduleEntries.map((e) => ({ id: e.id, ...e.data }));
+const modules = moduleEntries.map((e) => ({ id: e.id, ...e.data, image: withSrc(e.data.image) }));
 
 const audiences = await Promise.all(
   byOrder(await getCollection('audiences')).map(async (e) => {
     const mod = (await getEntry(e.data.module))!;
-    return { id: e.id, ...e.data, linkLabel: mod.data.linkLabel, linkHref: mod.data.linkHref };
+    return { id: e.id, ...e.data, image: withSrc(e.data.image), linkLabel: mod.data.linkLabel, linkHref: mod.data.linkHref };
   })
 );
 
@@ -42,7 +48,7 @@ const jsonLd = [
 ---
 <Base
   title={site.title} description={site.description} themeColor={site.themeColor}
-  ogImage={site.ogImage} ogImageAlt={site.ogImageAlt} siteName={site.brand.name} jsonLd={jsonLd} skipLabel={site.skipToContent}
+  ogImage={asset(site.ogImage)} ogImageAlt={site.ogImageAlt} siteName={site.brand.name} jsonLd={jsonLd} skipLabel={site.skipToContent}
 >
   <Header brand={site.brand} nav={site.nav} navLabel={site.navLabel} cta={site.cta} menuOpenLabel={site.menuOpenLabel} menuCloseLabel={site.menuCloseLabel} />
   <main id="main">
@@ -54,6 +60,8 @@ const jsonLd = [
     <Modules eyebrow={site.platform.eyebrow} heading={site.platform.heading} sub={site.platform.sub} tabsLabel={site.platform.tabsLabel} modules={modules} />
     <CtaBand text={site.band.text} label={site.band.label} href={site.cta.href} />
     <HowItWorks eyebrow={site.how.eyebrow} heading={site.how.heading} intro={site.how.intro} steps={steps} />
+    <Results sampleLabel={site.sampleLabel} {...results[0]} />
+    <Answers sampleLabel={site.sampleLabel} eyebrow={site.answers.eyebrow} heading={site.answers.heading} items={answers} />
     <Faq eyebrow={site.faq.eyebrow} heading={site.faq.heading} items={faqs} />
     <DemoForm {...site.demo} />
   </main>
