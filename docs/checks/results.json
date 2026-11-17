@@ -360,6 +360,11 @@
     },
     {
       "tag": "a",
+      "text": "Explore Mobility \u2192",
+      "ring": true
+    },
+    {
+      "tag": "a",
       "text": "Book a demo\u2192",
       "ring": true
     },
@@ -431,11 +436,6 @@
     {
       "tag": "a",
       "text": "Become a partner",
-      "ring": true
-    },
-    {
-      "tag": "a",
-      "text": "disrupt-x.io",
       "ring": true
     }
   ],

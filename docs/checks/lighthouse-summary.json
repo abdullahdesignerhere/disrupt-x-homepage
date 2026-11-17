@@ -1,16 +1,16 @@
 {
   "mobile": {
-    "performance": 93,
+    "performance": 94,
     "accessibility": 100,
     "best-practices": 100,
     "seo": 100,
     "agentic-browsing": 100,
     "metrics": {
       "first-contentful-paint": "1.4 s",
-      "largest-contentful-paint": "2.6 s",
-      "total-blocking-time": "210 ms",
-      "cumulative-layout-shift": "0",
-      "speed-index": "1.6 s"
+      "largest-contentful-paint": "3.0 s",
+      "total-blocking-time": "110 ms",
+      "cumulative-layout-shift": "0.002",
+      "speed-index": "1.7 s"
     }
   },
   "desktop": {
@@ -22,7 +22,7 @@
     "metrics": {
       "first-contentful-paint": "0.4 s",
       "largest-contentful-paint": "0.6 s",
-      "total-blocking-time": "0 ms",
+      "total-blocking-time": "10 ms",
       "cumulative-layout-shift": "0",
       "speed-index": "0.5 s"
     }
