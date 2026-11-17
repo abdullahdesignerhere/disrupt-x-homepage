@@ -1,0 +1,78 @@
+/* Design tokens. Values are carried over unchanged from the approved dark design. */
+:root {
+  /* Colour */
+  --paper: #0b0d12;
+  --white: #12151c;
+  --surface2: #181c25;
+  --ink: #eef1f5;
+  --ink-2: #c5cbd5;
+  --muted: #9da4b0;
+  --line: rgba(157, 164, 176, 0.16);
+  --line-2: rgba(157, 164, 176, 0.32);
+  --rule: rgba(238, 241, 245, 0.4);
+  --mint: #00ffce;
+  --accent: #00ffce;
+  --teal: #0e8c79;
+  --violet: #9e69ff;
+  --blue: #1677ff;
+  --amber: #f59e0b;
+  --red: #e5484d;
+  --red-tx: #ff7378;
+  --btn-bg: #19a993;
+  --btn-tx: #06110f;
+  --btn-shadow: 0 12px 30px rgba(25, 169, 147, 0.28);
+  --header-bg: rgba(11, 13, 18, 0.78);
+  --band: #12151c;
+  --footer-bg: #07080c;
+  --input-bg: #0b0d12;
+  --hero-glow: rgba(0, 255, 206, 0.09);
+  --grid: rgba(157, 164, 176, 0.07);
+  --mint-tint: rgba(0, 255, 206, 0.07);
+  --error: #ff7378;
+
+  /* Shadows */
+  --glow: 0 0 0 1px rgba(0, 255, 206, 0.14), 0 40px 120px -30px rgba(0, 255, 206, 0.2), 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 24px 50px -24px rgba(0, 0, 0, 0.7);
+
+  /* Type */
+  --font-display: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-body: 17px;
+  --fs-small: 14px;
+  --fs-eyebrow: 12.5px;
+  --fs-h1: clamp(34px, min(6.4vw, 9.5vh), 88px);
+  --fs-h2: clamp(34px, 4.2vw, 56px);
+  --fs-h2-sm: clamp(30px, 3.6vw, 48px);
+  --fs-h3: clamp(28px, 3.5vw, 44px);
+  --fs-lead: clamp(18px, 1.8vw, 23px);
+  --fs-statement: clamp(32px, 4.4vw, 62px);
+
+  /* Spacing */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+  --s-9: 120px;
+  --gutter: 28px;
+  --header-h: 70px;
+
+  /* Radii */
+  --r: 16px;
+  --r-sm: 10px;
+  --r-lg: 24px;
+  --r-xl: 30px;
+  --r-pill: 100px;
+
+  /* Layout */
+  --wrap: 1200px;
+
+  /* Breakpoints. Custom properties cannot sit inside @media, so these are the
+     reference values: keep the numbers in the media queries and in the scripts in step. */
+  --bp-phone: 760px;
+  --bp-stack: 1000px;
+  --bp-nav: 920px;
+}
