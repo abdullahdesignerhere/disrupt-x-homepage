@@ -177,6 +177,13 @@ async def main():
             for i, a in enumerate(await pg.query_selector_all('.who article')):
                 await a.scroll_into_view_if_needed(); await pg.wait_for_timeout(1200)
                 await a.screenshot(path=f'{SHOTS}/audience-{i+1}-{tag}.png')
+            for sid in ('results', 'answers'):
+                el = await pg.query_selector('#' + sid)
+                await el.scroll_into_view_if_needed(); await pg.wait_for_timeout(1500)
+                await pg.evaluate("document.querySelectorAll('[data-reveal]').forEach(e => e.classList.add('is-in'))")
+                await pg.wait_for_timeout(700)
+                await pg.add_style_tag(content='.sitehead,.skip-link{visibility:hidden!important}')
+                await el.screenshot(path=f'{SHOTS}/{sid}-{tag}.png')
             if tag == '1440':
                 for name, i in [('tab1', 0), ('tab5', 4)]:
                     await scroll_to(pg, mod['start'] + i * 480 + 240, 2200)

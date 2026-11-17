@@ -12,7 +12,7 @@
     }
   ],
   "smoothness": {
-    "final": 12010,
+    "final": 13591,
     "jumps": [],
     "errors": []
   },
@@ -469,6 +469,6 @@
     "storyHeight": 2218,
     "statementOpacity": "1",
     "audienceOpacity": "1",
-    "scrollHeight": 8822
+    "scrollHeight": 10403
   }
 }
