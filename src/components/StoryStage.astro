@@ -5,6 +5,7 @@ import Eyebrow from './Eyebrow.astro';
 import Button from './Button.astro';
 import DayBar from './DayBar.astro';
 import BrowserFrame from './BrowserFrame.astro';
+import { asset } from '../lib/url';
 interface Day { day: string; without: string; withoutIsBad: boolean; with: string; target: string; note: string; view: string }
 interface Props {
   hero: { eyebrow: string; titleStart: string; titleMark: string; titleEnd: string; lead: string; proof: string };
@@ -13,7 +14,7 @@ interface Props {
   days: Day[];
 }
 const { hero, story, cta, days } = Astro.props;
-const image = { src: '/assets/app-asset.webp', width: 1440, height: 900, alt: story.frameAlt };
+const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, alt: story.frameAlt };
 ---
 <section class="hero story" id="story" aria-labelledby="hero-title" data-story>
   <div class="hero-in" data-hero-in>

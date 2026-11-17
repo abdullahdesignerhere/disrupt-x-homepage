@@ -12,7 +12,7 @@ npm run preview    # serve dist/ on http://127.0.0.1:4321
 npm run check      # astro check (types and templates)
 ```
 
-Node 22 or newer. Before launch, set the real site address in `astro.config.mjs` (`SITE_URL`, marked TODO). It feeds the canonical link and Open Graph URL.
+Node 22 or newer. The site address and base path default to GitHub Pages in `astro.config.mjs` and can be overridden with `SITE_URL` and `BASE_PATH` (see Deploy).
 
 ## Where things are
 
@@ -32,15 +32,20 @@ scripts/                   lighthouse.mjs, axe.mjs, checks/run_checks.py
 docs/checks/               evidence from the last check run
 ```
 
-Components hold no copy. Component styles are scoped; shared values come from `tokens.css`. The page order is in `src/pages/index.astro`: header, hero and story, logos and awards, statement, who it's for, platform, call-to-action band, how it works, FAQ, demo form, footer.
+Components hold no copy. Component styles are scoped; shared values come from `tokens.css`. The page order is in `src/pages/index.astro`: header, hero and story, logos and awards, statement, who it's for, platform, call-to-action band, how it works, customer story (sample), answer cards (sample), FAQ, demo form, footer.
 
-The collections are `site` (nav, hero, labels, meta, footer), `modules`, `audiences`, `storyDays`, `faqs`, `logos`, `awards` and `steps`. Each entry has an `order` number. Note: Astro 7 reads the schema file from `src/content.config.ts`; the older `src/content/config.ts` path is not supported.
+The collections are `site` (nav, hero, labels, meta, footer), `modules`, `audiences`, `storyDays`, `faqs`, `results`, `answers`, `logos`, `awards` and `steps`. Each entry has an `order` number. Note: Astro 7 reads the schema file from `src/content.config.ts`; the older `src/content/config.ts` path is not supported.
+
+## Deploy
+
+The site is deployed with GitHub Pages, through a GitHub Actions workflow that runs `npm ci` and `npm run build` with `BASE_PATH` set. The defaults are `SITE_URL=https://abdullahdesignerhere.github.io` and `BASE_PATH=/disrupt-x-homepage`, so the live address is https://abdullahdesignerhere.github.io/disrupt-x-homepage/. For a root build use `BASE_PATH=/ SITE_URL=https://example.com npm run build`. Image and asset paths go through `src/lib/url.ts` (`asset()`), so both builds work. The workflow file is not in this repository.
 
 ## Add things
 
 - **A module:** copy a file in `src/content/modules/`, change the fields, set a new `order`. It appears as a tab and a panel and the pinned scroll lengthens by itself. `view` picks a live ALEF screen (optional); `image` is the placeholder and the no-JS version.
 - **An audience:** add a file in `src/content/audiences/`. `module` points at a module file, and the link label and URL come from it. Blocks alternate sides by order.
 - **A FAQ:** add a file in `src/content/faqs/` with `question`, `answer`, `order`. The FAQ structured data is built from the same files.
+- **A results figure or an answer card:** edit `src/content/results/` or add a file to `src/content/answers/`. Both sections are sample data and show a "Sample data" chip (label in `site.json`).
 - **A story day, logo, award or step:** same pattern in its folder. A new story day needs a `target` from the list in `content.config.ts`; the selectors are in `src/scripts/story.ts`.
 
 ## Design tokens
@@ -49,7 +54,7 @@ All in `src/styles/tokens.css`. The button is `#19A993` with `#06110F` text. Bre
 
 ## Behaviour notes
 
-- Hero and story are one pinned stage: 600px of scroll to lift the frame, then 600px for each of four days. At 760px and below the screen becomes a close-up window that pans and zooms to the highlighted element.
+- Hero and story are one pinned stage: 600px of scroll to lift the frame, then 600px for each of four days. At 760px and below the screen becomes a close-up window that pans and zooms to the highlighted element. For the work-order row the close-up frames the first three cells at a smaller zoom (text about 9px) because the row is wider than a phone.
 - Platform section pins at 761px and up (one tab per 480px of scroll, stacked layout up to 1000px). Below that it is plain tabs.
 - With `prefers-reduced-motion` or without JavaScript there are no pins and the page is a normal readable document.
 - The ALEF screens are loaded in two steps: the hero screen mounts straight away, the module screens when the section nears the viewport. The `.webp` images are the placeholders.

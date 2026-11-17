@@ -1,10 +1,9 @@
 import { defineConfig } from 'astro/config';
 
-// TODO: replace with the real production origin before launch. It feeds the canonical URL and Open Graph URL.
-const SITE_URL = 'https://example.com';
-
+// Defaults are for GitHub Pages. Override with SITE_URL and BASE_PATH (for example BASE_PATH=/ for a root build).
 export default defineConfig({
-  site: SITE_URL,
+  site: process.env.SITE_URL ?? 'https://abdullahdesignerhere.github.io',
+  base: process.env.BASE_PATH ?? '/disrupt-x-homepage',
   output: 'static',
   build: { inlineStylesheets: 'auto' },
 });

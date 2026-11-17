@@ -22,7 +22,7 @@ interface Props {
 }
 const { title, description, themeColor, ogImage, ogImageAlt, siteName, jsonLd, skipLabel } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
-const ogUrl = new URL(ogImage, Astro.site).href;
+const ogUrl = new URL(ogImage, Astro.site).href; // ogImage already includes the base path
 ---
 <!doctype html>
 <html lang="en">
