@@ -17,7 +17,7 @@ function mount(el,o){
     if(m){m.classList.toggle('is-open');}else if(open){open.classList.remove('is-open');}
   });
   render();fit();
-  var ro=g.ResizeObserver?new ResizeObserver(fit):null;if(ro)ro.observe(el);else g.addEventListener('resize',fit);
+  var ro=g.ResizeObserver?new ResizeObserver(function(){requestAnimationFrame(fit)}):null;if(ro)ro.observe(el);else g.addEventListener('resize',fit);
   return {setView:setView,getView:function(){return cur;},fit:fit,destroy:function(){if(ro)ro.disconnect();sc.remove();}};
 }
 g.AlefApp={mount:mount,views:NAMES};

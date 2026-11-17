@@ -30,6 +30,10 @@ export function initForm() {
       status.classList.add('is-error');
       status.textContent = form.dataset.summary ?? '';
       bad[0].focus();
+      // Some engines (WebKit) scroll the field flush with the top edge, under the sticky header.
+      const clear = (document.querySelector('header')?.getBoundingClientRect().bottom ?? 0) + 24;
+      const top = bad[0].getBoundingClientRect().top;
+      if (top < clear) window.scrollBy(0, top - clear);
       return;
     }
     status.textContent = form.dataset.success ?? '';
