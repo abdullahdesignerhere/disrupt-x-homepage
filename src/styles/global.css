@@ -74,3 +74,6 @@ h1, h2, h3 {
 .alef svg { max-width: none; }
 .alef a { color: inherit; }
 .alef { text-wrap: wrap; letter-spacing: normal; text-transform: none; }
+
+/* Mobile menu open: the page behind does not scroll; the gutter keeps the layout from shifting. */
+html.menu-open { overflow: hidden; scrollbar-gutter: stable; }

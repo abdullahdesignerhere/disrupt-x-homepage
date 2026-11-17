@@ -96,7 +96,7 @@ const image = { src: asset('/assets/app-asset.webp'), width: 1440, height: 900, 
   .ccard b { display: block; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mint); margin-bottom: 4px; font-weight: 600; }
 
   /* pinned (JS) mode */
-  :global(.js) .hero { height: 100vh; min-height: 620px; }
+  :global(.js) .hero { height: var(--vh100); min-height: 560px; }
   :global(.js) .hero-in { position: absolute; left: 0; right: 0; top: calc(var(--header-h) + 5vh); padding: 0 28px; }
   :global(.js) .sstage {
     position: absolute; left: 0; right: 0; top: var(--header-h); bottom: 0; padding: 12px 28px 8px;

@@ -63,7 +63,7 @@ const ratio = (image.width / image.height).toFixed(4);
   :global(.mpin) .mpanel > .wrap { width: 100%; }
   :global(.mpin) .mp { height: 100%; align-items: center; grid-template-columns: minmax(0, 37fr) minmax(0, 63fr); gap: 48px; }
   :global(.mpin) h3 { font-size: clamp(28px, 3vw, 42px); }
-  :global(.mpin) .mshot { width: min(100%, calc((100vh - 390px) * var(--ar))); }
+  :global(.mpin) .mshot { width: min(100%, calc((var(--vh100) - 390px) * var(--ar))); }
 
   /* Pinned and narrow (761 to 1000px): text above, screen below */
   :global(.mstack) .mp { grid-template-columns: minmax(0, 1fr); gap: 12px; align-content: center; }

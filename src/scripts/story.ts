@@ -1,7 +1,7 @@
 // Hero and story: one pinned stage. The hero text lifts away while the product frame rises and flattens,
 // then four days play out. Visuals change by day (not scrubbed); the scroll only decides which day is on.
 // On phones the screen becomes a close-up window that pans and zooms to the ringed element of each day.
-import { gsap, ScrollTrigger, root, isNarrow, isPhone } from './motion';
+import { gsap, ScrollTrigger, root, isNarrow, isPhone, coarse } from './motion';
 import { mountAlef } from './alef';
 
 // Which element of the recreated screen gets the ring. Names match `target` in the storyDays collection.
@@ -24,9 +24,9 @@ const MAX_ZOOM = 4.2;
 const ROW_CELLS = 3;
 const ROW_MIN_ZOOM = 2.9;
 
-export function initStory() {
+export function initStory(): (() => void) | null {
   const section = document.querySelector<HTMLElement>('[data-story]');
-  if (!section) return;
+  if (!section) return null;
   const sstage = section.querySelector<HTMLElement>('[data-sstage]')!;
   const daybar = section.querySelector<HTMLElement>('[data-daybar]')!;
   const heroIn = section.querySelector<HTMLElement>('[data-hero-in]')!;
@@ -61,7 +61,15 @@ export function initStory() {
     }
   }
   fit();
-  window.addEventListener('resize', fit);
+  // Fit only when the layout width changes, or on a pointer:fine device (a desktop window resize).
+  // On touch screens the address bar changes the height all the time and must not re-layout.
+  let lastW = window.innerWidth;
+  const onResize = () => {
+    if (window.innerWidth === lastW && coarse()) return;
+    lastW = window.innerWidth;
+    fit();
+  };
+  window.addEventListener('resize', onResize);
   ScrollTrigger.addEventListener('refreshInit', fit);
 
   // ---- the live screen ------------------------------------------------------------------------
@@ -236,7 +244,8 @@ export function initStory() {
       place(coNow);
     } else if (coNow < 0) pan(-1, false);
   }
-  window.addEventListener('resize', () => requestAnimationFrame(replace));
+  const onResizeReplace = () => requestAnimationFrame(replace);
+  window.addEventListener('resize', onResizeReplace);
   ScrollTrigger.addEventListener('refresh', replace);
   document.fonts?.ready.then(replace);
   setDay(0);
@@ -248,7 +257,7 @@ export function initStory() {
 
   // where the frame sits at the start: below the hero text, never lower than the viewport allows
   function startY() {
-    const vh = window.innerHeight;
+    const vh = section.clientHeight; // the pinned stage height (100svh), steady while the address bar moves
     const y0 = Number(gsap.getProperty(sstage, 'y')) || 0;
     const frameTop = frame.getBoundingClientRect().top - y0;
     let target = Math.max(vh * (narrow ? 0.8 : 0.74), heroIn.getBoundingClientRect().bottom + (narrow ? 14 : 24));
@@ -278,8 +287,26 @@ export function initStory() {
     .to([daybar, caption], { autoAlpha: 1, duration: 0.45, ease: 'power1.out' }, LIFT - 0.5)
     .to({}, { duration: 0.1 }, T - 0.1);
 
-  skip?.addEventListener('click', (e) => {
+  const onSkip = (e: Event) => {
     e.preventDefault();
     window.scrollTo(0, (tl.scrollTrigger?.end ?? 0) + 2);
-  });
+  };
+  skip?.addEventListener('click', onSkip);
+
+  // Undo everything, so the section falls back to the plain stacked layout (short landscape phones, tiny screens).
+  return () => {
+    window.removeEventListener('resize', onResize);
+    window.removeEventListener('resize', onResizeReplace);
+    ScrollTrigger.removeEventListener('refreshInit', fit);
+    ScrollTrigger.removeEventListener('refresh', replace);
+    skip?.removeEventListener('click', onSkip);
+    tl.scrollTrigger?.kill(true);
+    tl.kill();
+    gsap.killTweensOf(host);
+    gsap.set([sstage, frame, heroIn, daybar, caption, host, ...sts.map((e) => e.firstElementChild as HTMLElement)], { clearProps: 'all' });
+    sstage.style.removeProperty('--bw');
+    frame.style.removeProperty('--closeup-h');
+    daybar.classList.remove('cta-on');
+    root.classList.remove('js');
+  };
 }

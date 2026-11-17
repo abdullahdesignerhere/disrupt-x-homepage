@@ -1,5 +1,7 @@
 /* Design tokens. Values are carried over unchanged from the approved dark design. */
 :root {
+  /* Full-screen height that ignores the mobile address bar (svh), with a 100vh fallback for older browsers. */
+  --vh100: 100vh;
   /* Colour */
   --paper: #0b0d12;
   --white: #12151c;
@@ -75,4 +77,8 @@
   --bp-phone: 760px;
   --bp-stack: 1000px;
   --bp-nav: 920px;
+}
+
+@supports (height: 100svh) {
+  :root { --vh100: 100svh; }
 }

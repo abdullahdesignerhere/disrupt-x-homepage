@@ -69,6 +69,7 @@ const { brand, nav, navLabel, cta, menuOpenLabel, menuCloseLabel } = Astro.props
       background: #0b0d12; border-bottom: 1px solid var(--line);
       padding: 6px var(--gutter) 18px;
       display: none;
+      max-height: calc(var(--vh100) - var(--header-h)); overflow-y: auto; overscroll-behavior: contain;
     }
     :global(.js-nav) .links.open { display: block; }
     .links ul { flex-direction: column; gap: 0; font-size: 18px; }

@@ -10,6 +10,7 @@ export function initHeader() {
     const closeLabel = btn.dataset.closeLabel ?? 'Close menu';
     const set = (open: boolean) => {
       nav.classList.toggle('open', open);
+      root.classList.toggle('menu-open', open); // locks page scroll behind the menu
       btn.setAttribute('aria-expanded', String(open));
       btn.setAttribute('aria-label', open ? closeLabel : openLabel);
     };

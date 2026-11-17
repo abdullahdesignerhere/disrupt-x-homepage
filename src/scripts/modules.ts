@@ -1,6 +1,6 @@
 // Platform modules. At 761px and up the section is pinned: scrolling steps through the tabs, panels cross-fade,
 // one pill glides between the tabs and a thin bar shows progress. Below that, and with reduced motion, it is plain tabs.
-import { gsap, ScrollTrigger, root, BP_PHONE, BP_STACK, prefersReducedMotion } from './motion';
+import { gsap, ScrollTrigger, root, BP_PHONE, BP_STACK, prefersReducedMotion, coarse, canPinModules } from './motion';
 import { mountAlef } from './alef';
 
 const STEP_PX = 480; // scroll distance per tab
@@ -101,7 +101,7 @@ export function initModules() {
   if (reduced) return; // reduced motion: tabs only, no pin
 
   // ---- pinned stepper (761px and up) -------------------------------------------------------------
-  const wantPin = () => window.innerWidth > BP_PHONE;
+  const wantPin = () => canPinModules();
   const wantStack = () => window.innerWidth <= BP_STACK;
 
   // Stacked layout (761 to 1000px): size the screen by the height left under the text; hide the bullets, then
@@ -204,7 +204,11 @@ export function initModules() {
   else mode = 'tabbed';
 
   let timer: number | undefined;
+  let lastW = window.innerWidth;
   window.addEventListener('resize', () => {
+    // Touch screens fire resize for every address-bar change; only a width change (rotation, split screen) matters.
+    if (window.innerWidth === lastW && coarse()) return;
+    lastW = window.innerWidth;
     clearTimeout(timer);
     timer = window.setTimeout(() => {
       const m = wantPin() ? 'pin' : 'tabbed';
